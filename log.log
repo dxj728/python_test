@@ -1,0 +1,10 @@
+2019-03-04 00:29:24 Monroot DEBUG D:/desktop/test/logging_test.py debug_txt
+2019-03-04 00:29:24 Monroot INFO D:/desktop/test/logging_test.py info_txt
+2019-03-04 00:29:24 Monroot WARNING D:/desktop/test/logging_test.py warning_txt
+2019-03-04 00:29:24 Monroot ERROR D:/desktop/test/logging_test.py error_txt
+2019-03-04 00:29:24 Monroot CRITICAL D:/desktop/test/logging_test.py critical_txt
+2019-03-04 00:29:59 Monroot DEBUG D:/desktop/test/logging_test.py 37: debug_txt
+2019-03-04 00:29:59 Monroot INFO D:/desktop/test/logging_test.py 38: info_txt
+2019-03-04 00:29:59 Monroot WARNING D:/desktop/test/logging_test.py 39: warning_txt
+2019-03-04 00:29:59 Monroot ERROR D:/desktop/test/logging_test.py 40: error_txt
+2019-03-04 00:29:59 Monroot CRITICAL D:/desktop/test/logging_test.py 41: critical_txt
