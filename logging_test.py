@@ -44,7 +44,14 @@ logging.critical("critical_txt")
 # 4.输出变量
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s%(name)s %(levelname)s %(message)s", datefmt='%Y-%m-%d %H:%M:%S %a')
 logging.warning("%s is %d years old", 'dxj728', 25)
+x=25
+name='dxj728'
+logging.info("%s is %d years old", name, x)
+
+
+
 # 注：第一个格式字符串作为事件的输出，变量通过后续参数进行传递
+
 
 
 
