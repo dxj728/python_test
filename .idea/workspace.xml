@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bcf03256-4c3d-44e8-bda4-7fc4d6522733" name="Default" comment="test_commit">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="bcf03256-4c3d-44e8-bda4-7fc4d6522733" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/threading_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logging_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/logging_test.py" afterDir="false" />
     </list>
     <ignored path=".idea/" />
     <ignored path=".idea/vcs.xml" />
@@ -20,6 +19,7 @@
     <SUITE FILE_PATH="coverage/test$mysqlpyodbc_test.coverage" NAME="mysqlpyodbc_test Coverage Results" MODIFIED="1550983839738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/test$dxj_test1.coverage" NAME="dxj_test1 Coverage Results" MODIFIED="1549985048708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/python_test$logging_test.coverage" NAME="logging_test Coverage Results" MODIFIED="1551884455945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/python_test$threading_test.coverage" NAME="threading_test Coverage Results" MODIFIED="1551888214818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -47,11 +47,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="logging_test.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="logging_test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logging_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
+            <state relative-caret-position="864">
+              <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="threading_test.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/threading_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -83,6 +92,7 @@
         <option value="$PROJECT_DIR$/dxj_test1.py" />
         <option value="$PROJECT_DIR$/mysqlpyodbc_test.py" />
         <option value="$PROJECT_DIR$/logging_test.py" />
+        <option value="$PROJECT_DIR$/threading_test.py" />
       </list>
     </option>
   </component>
@@ -145,7 +155,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.logging_test">
+  <component name="RunManager" selected="Python.threading_test">
     <configuration name="dxj_test1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="test" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -203,13 +213,34 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="threading_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="test" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/threading_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list>
       <item itemvalue="Python.dxj_test1" />
       <item itemvalue="Python.mysqlpyodbc_test" />
       <item itemvalue="Python.logging_test" />
+      <item itemvalue="Python.threading_test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.threading_test" />
         <item itemvalue="Python.logging_test" />
         <item itemvalue="Python.mysqlpyodbc_test" />
         <item itemvalue="Python.dxj_test1" />
@@ -227,6 +258,14 @@
       <option name="presentableId" value="Default" />
       <updated>1549647440940</updated>
     </task>
+    <task id="LOCAL-00001" summary="test:logging模块变量">
+      <created>1551884511035</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1551884511035</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -238,7 +277,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3293944" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.41358936" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.25110784" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="right" id="Remote Host" order="3" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1769437" />
@@ -262,6 +301,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test:logging模块变量" />
+    <option name="LAST_COMMIT_MESSAGE" value="test:logging模块变量" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -437,8 +480,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/logging_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
+        <state relative-caret-position="864">
+          <caret line="48" column="43" lean-forward="true" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threading_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
         </state>
       </provider>
     </entry>
