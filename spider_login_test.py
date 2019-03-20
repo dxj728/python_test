@@ -8,7 +8,9 @@ import urllib,os
 import requests
 from lxml import etree
 
+# 模拟实现的爬虫类
 class Spider(object):
+	# 初始化request请求，及请求头内容、登录界面url等
 	def __init__(self):
 		self.__headers = {
 			'Referer': 'https://github.com/',
@@ -18,6 +20,8 @@ class Spider(object):
 		self.__login_url = 'https://github.com/login'
 		self.session = requests.session()
 
+	# 获取登录界面上的authenticity_token数据信息
+	# 返回值：authenticity_token值（字符串）
 	def __get_token(self):
 		respond = self.session.get(self.__login_url, headers=self.__headers)
 		if respond.status_code != 200:
@@ -28,6 +32,7 @@ class Spider(object):
 		print(token)
 		return token
 
+	# 实现模拟登录，并打印获取到的数据
 	def login(self, name, password):
 		token = self.__get_token()
 		post_data = {
@@ -45,6 +50,7 @@ class Spider(object):
 		print(respond.text)
 
 
+# 主函数，配置相应信息后启动运行
 if __name__ == '__main__':
 
 	name = 'dxj728'
