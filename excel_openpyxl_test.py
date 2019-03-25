@@ -7,7 +7,7 @@
 # openpyxl模块安装：pip install openpyxl
 
 import openpyxl
-import datetime,time
+import datetime, time
 
 
 # 创建excel操作类
@@ -23,11 +23,11 @@ class Excel(object):
 	# 新创建一个excel工作簿并写入表格
 	def create_write(self, sheet=None, data=None):
 		wb = openpyxl.Workbook()  # 创建文件对象
-		if sheet == None:		# 判断是否提供新建表格名
-			ws = wb.active		# 创建默认表格（Sheet1）
+		if sheet is None:		# 判断是否提供新建表格名
+			ws = wb.active		# 创建默认表格（Sheet）
 		else:
 			ws = wb.create_sheet(sheet)
-		# TODO:根据数据类型写入数据
+		# TODO:根据数据类型写入数据（string,list(dict)）
 
 		wb.save(self.excel_path)  # 存储内容至excel工作簿
 		return
@@ -36,11 +36,11 @@ class Excel(object):
 	# 输入：sheet(字符串，表格名)
 	def load_write(self, sheet=None, data=None):
 		wb = openpyxl.load_workbook(self.excel_path)  # 创建文件对象
-		if sheet == None:		# 判断是否提供新建表格名
+		if sheet is None:		# 判断是否提供新建表格名
 			ws = wb.active		# 获取默认的已存在活动表格
 		else:
 			ws = wb[sheet]
-		# TODO:根据数据类型写入数据
+		# TODO:根据数据类型写入数据（string,list(dict)）
 
 		wb.save(self.excel_path)  # 存储内容至excel工作簿
 		return
