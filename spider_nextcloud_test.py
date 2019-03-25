@@ -50,8 +50,8 @@ class Spider(object):
 		print(respond.text)
 		print(respond.status_code)
 
-	# 实现模拟登录，并打印获取到的数据
-	def download(self, file):
+	# 实现模拟文件下载
+	def download(self, file_url):
 		token = self.__get_token()
 		post_data = {
 			'user': name,
