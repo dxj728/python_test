@@ -22,7 +22,7 @@ if not os.path.exists(test_dir):
 	os.mkdir(test_dir)		# 创建文件夹，文件已存在时报错（无法创建）
 
 os.rmdir(test_dir)		# 删除空文件夹
-os.remove(copy_excel_path)	# 删除单一文件
+os.remove(copy_excel_path)		# 删除单一文件
 
 
 # ***********************shutil模块练习**********************
