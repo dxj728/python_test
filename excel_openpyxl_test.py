@@ -30,12 +30,12 @@ class Excel(object):
 		if excel_path is None:
 			excel_path = self.excel_path
 		try:
-			excel = open(excel_path, 'w')
-			excel.close()
+			wb = openpyxl.load_workbook(excel_path)
+			wb.save(excel_path)
 		except:
-			print('{} 文件写入测试失败,检查文件是否存在或未关闭'.format(excel_path))
-			# raise
+			print('{} 文件打开测试失败,检查文件是否存在或未关闭'.format(excel_path))
 			exit(-1)
+		return 0
 
 
 	# 新创建一个excel工作簿并写入表格
@@ -79,8 +79,19 @@ class Excel(object):
 		rows = ws.rows
 		col = ws.columns
 		print(rows, col)
-
 		pass
+
+	# 查询并返回表格中的一个单元格中内容
+	def load_one_data(self, sheet=None, row=1, col=1):
+		wb = openpyxl.load_workbook(self.excel_path)
+		wb.guess_types = True
+		if sheet is None:
+			ws = wb.active
+		else:
+			ws = wb[sheet]
+		x = ws.cell(row, col).value
+		wb.save(self.excel_path)
+		return x
 
 	# 表格的各种奇怪方法尝试练习
 	def test(self, data = None):
@@ -101,8 +112,10 @@ class Excel(object):
 
 if __name__ == '__main__':
 
-	excel_path = r'E:\desktop\test.xlsx'
+	excel_path = r'D:\desktop\test.xlsx'
 
 	excel_test = Excel(excel_path)
 	excel_test.open_excel_check()
-	excel_test.test()
+	# excel_test.test()
+	x = excel_test.load_one_data(row=6, col=6)
+	print(x)
