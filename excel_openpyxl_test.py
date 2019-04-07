@@ -4,7 +4,10 @@
 # Time: 2019年03月21日23时
 # 说明：openpyxl操作excel的练习
 # 参考来源：https://www.cnblogs.com/zeke-python-road/p/8986318.html
+# openpyxl支持excel2007以后的版本(.xlsx)
 # openpyxl模块安装：pip install openpyxl
+# xlrd 与 xlwt支持excel2007及之前版本(.xls)，效率更高
+# xlrd 与 xlwt 模块安装：pip install xlrd ; pip install xlwt
 
 import openpyxl
 import datetime, time
@@ -20,6 +23,21 @@ class Excel(object):
 			print('未提供表格路径，可能会出现错误')
 			exit(-1)
 
+	# 通过提前对文件进行打开测试，查看文件是否可读写
+	# 输入：excel文件绝对路径，
+	# 返回：无、异常
+	def open_excel_check(self, excel_path=None):
+		if excel_path is None:
+			excel_path = self.excel_path
+		try:
+			excel = open(excel_path, 'w')
+			excel.close()
+		except:
+			print('{} 文件写入测试失败,检查文件是否存在或未关闭'.format(excel_path))
+			# raise
+			exit(-1)
+
+
 	# 新创建一个excel工作簿并写入表格
 	def create_write(self, sheet=None, data=None):
 		wb = openpyxl.Workbook()  # 创建文件对象
@@ -31,6 +49,8 @@ class Excel(object):
 
 		wb.save(self.excel_path)  # 存储内容至excel工作簿
 		return
+
+
 
 	# 新创建一个excel工作簿并写入表格
 	# 输入：sheet(字符串，表格名)
@@ -63,7 +83,8 @@ class Excel(object):
 
 if __name__ == '__main__':
 
-	excel_path = r'D:\desktop\test.xlsx'
+	excel_path = r'E:\desktop\test.xlsx'
 
 	excel_test = Excel(excel_path)
+	excel_test.open_excel_check()
 	excel_test.test()
