@@ -52,7 +52,7 @@ class Excel(object):
 
 
 
-	# 新创建一个excel工作簿并写入表格
+	# 加载一个已存在的数据表格并写入数据
 	# 输入：sheet(字符串，表格名)
 	def load_write(self, sheet=None, data=None):
 		wb = openpyxl.load_workbook(self.excel_path)  # 创建文件对象
@@ -61,9 +61,25 @@ class Excel(object):
 		else:
 			ws = wb[sheet]
 		# TODO:根据数据类型写入数据（string,list(dict)）
-
+		x = type(data)
+		print(x)
+		# if type(data) ==
 		wb.save(self.excel_path)  # 存储内容至excel工作簿
 		return
+		pass
+
+	# 获取工作簿下该表格全部数据，并返回为list(dict)形式(按照第一行表头为key，从第二行开始读取数据)
+	# 输入：sheet(字符串，表格名)
+	def load_all_data(self, sheet=None):
+		wb = openpyxl.load_workbook(self.excel_path)  # 创建文件对象
+		if sheet is None:		# 判断是否提供新建表格名
+			ws = wb.active		# 获取默认的已存在活动表格
+		else:
+			ws = wb[sheet]
+		rows = ws.rows
+		col = ws.columns
+		print(rows, col)
+
 		pass
 
 	# 表格的各种奇怪方法尝试练习
@@ -78,6 +94,8 @@ class Excel(object):
 		ws.cell(3, 3).hyperlink = 'https://www.dxj728.com'		# 插入超链接（明文）
 		ws.cell(4, 4, value=('=HYPERLINK("%s"，"%s")' % ('https://www.dxj728.com', 'dxj728')))		# 插入超链接字符
 
+		x = ws.cell(6, 6).value
+		print(x)
 		wb.save(self.excel_path)		# 存储内容至excel工作簿
 
 
