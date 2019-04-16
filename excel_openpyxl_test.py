@@ -6,14 +6,13 @@
 # 参考来源：https://www.cnblogs.com/zeke-python-road/p/8986318.html
 # openpyxl支持excel2007以后的版本(.xlsx)
 # openpyxl模块安装：pip install openpyxl
-# xlrd 与 xlwt支持excel2007及之前版本(.xls)，效率更高
-# xlrd 与 xlwt 模块安装：pip install xlrd ; pip install xlwt
+
 
 import openpyxl
 import datetime, time
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 # 创建excel操作类
 class Excel(object):
 	# 初始化表格路径
@@ -118,11 +117,12 @@ if __name__ == '__main__':
 	excel_test = Excel(excel_path)
 	excel_test.open_excel_check()
 	# excel_test.test()
-	x = excel_test.load_one_data(row=6, col=8)		# unicode类型
-	y = x.split('【')[1].split('】')[0]		# unicode类型
-	z = y.encode('utf-8')		# str类型
-	if y == z:
-		print('OK')		# 可成功比较
-	print(x)
-	print(y)
-	print(z)
+	# x = excel_test.load_one_data(row=6, col=8)		# unicode类型
+	# y = x.split('【')[1].split('】')[0]		# unicode类型
+	# z = y.encode('utf-8')		# str类型
+	# if y == z:
+	# 	print('OK')		# 可成功比较
+	# print(x)
+	# print(y)
+	# print(z)
+	excel_test.load_all_data()
