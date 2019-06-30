@@ -19,36 +19,36 @@ sys.setdefaultencoding('utf-8')
 
 excel_path = r'D:\desktop\test.xlsx'
 
-## ***************************************************xlrd读取操作部分************************************
-# # 打开excel文件
-# wb = xlrd.open_workbook(excel_path)
-#
-# # 获取工作簿的所有sheet名
-# str_sheets = wb.sheet_names()
-# print('str_sheets值：' + str(str_sheets))
-#
-# # 根据sheet索引或者名称获取sheet内容(两种方法)
-# ws01 = wb.sheet_by_index(0)		# sheet索引从0开始
-# ws02 = wb.sheet_by_name('Sheet1')
-#
-# # 获取表的名称、行列值
-# str_sheet_name = ws02.name
-# rows = ws02.nrows
-# cols = ws02.ncols
-# print('sheet表名称:' + str_sheet_name + '  行数：' + str(rows) + '  列数：'+ str(cols))
-#
-# # 获取表的行列的内容,索引从0开始
-# first_row = ws02.row_values(0)
-# second_col = ws02.col_values(1)
-# print('第一行内容：' + str(first_row) + '\n第二列内容: ' + str(second_col))
-#
-# # 获取单元格内容（三种方法）
-# str1 = ws02.cell(3, 1).value.encode('utf-8')
-# str2 = ws02.cell_value(3, 1).encode('utf-8')
-# str3 = ws02.row(3)[1].value.encode('utf-8')
-# print('str1值：{} str2值：{} str3值：{}'.format(str1, str2, str3))
+# ***************************************************xlrd读取操作部分************************************
+# 打开excel文件
+wb = xlrd.open_workbook(excel_path)
 
-## ***************************************************xlwt写入操作部分************************************
+# 获取工作簿的所有sheet名
+str_sheets = wb.sheet_names()
+print('str_sheets值：' + str(str_sheets))
+
+# 根据sheet索引或者名称获取sheet内容(两种方法)
+ws01 = wb.sheet_by_index(0)		# sheet索引从0开始
+ws02 = wb.sheet_by_name('Sheet1')
+
+# 获取表的名称、行列值
+str_sheet_name = ws02.name
+rows = ws02.nrows
+cols = ws02.ncols
+print('sheet表名称:' + str_sheet_name + '  行数：' + str(rows) + '  列数：'+ str(cols))
+
+# 获取表的行列的内容,索引从0开始
+first_row = ws02.row_values(0)
+second_col = ws02.col_values(1)
+print('第一行内容：' + str(first_row) + '\n第二列内容: ' + str(second_col))
+
+# 获取单元格内容（三种方法）
+str1 = ws02.cell(3, 1).value.encode('utf-8')
+str2 = ws02.cell_value(3, 1).encode('utf-8')
+str3 = ws02.row(3)[1].value.encode('utf-8')
+print('str1值：{} str2值：{} str3值：{}'.format(str1, str2, str3))
+
+# ***************************************************xlwt写入操作部分************************************
 
 
 # 设置单元格样式
