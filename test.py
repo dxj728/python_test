@@ -10,28 +10,28 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-excel_path = r'D:\desktop\test.xlsx'
+# excel_path = r'D:\desktop\test.xlsx'
+#
+# ##**********************************读取操作*******************************
+# wb = openpyxl.load_workbook(excel_path)
+# # ws00 = wb.active
+# ws01 = wb['Sheet1']
+#
+# # 索引从0开始
+# x = ws01.cell(4, 2).value
+# print(x)
+#
+# # ********************************写入操作********************************
+# ws02 = wb.create_sheet('sheet3_openpyxl')
+#
+# ws02['A1'] = 42  # 写入数字
+# ws02['B1'] = u"你好" + "dxj728"  # 写入文字（UTF-8格式）
+# ws02['A2'] = datetime.datetime.now()  # 写入当前时间
+# ws02.cell(3, 3).hyperlink = 'https://www.dxj728.com'  # 插入超链接（明文）
+# ws02.cell(4, 4, value=('=HYPERLINK("{}","{}")'.format('https://www.dxj728.com', 'dxj728')))  # 插入超链接字符
 
-##**********************************读取操作*******************************
-wb = openpyxl.load_workbook(excel_path)
-# ws00 = wb.active
-ws01 = wb['Sheet1']
 
-# 索引从0开始
-x = ws01.cell(4, 2).value
-print(x)
-
-# ********************************写入操作********************************
-ws02 = wb.create_sheet('sheet3_openpyxl')
-
-ws02['A1'] = 42  # 写入数字
-ws02['B1'] = u"你好" + "dxj728"  # 写入文字（UTF-8格式）
-ws02['A2'] = datetime.datetime.now()  # 写入当前时间
-ws02.cell(3, 3).hyperlink = 'https://www.dxj728.com'  # 插入超链接（明文）
-ws02.cell(4, 4, value=('=HYPERLINK("{}","{}")'.format('https://www.dxj728.com', 'dxj728')))  # 插入超链接字符
-
-
-wb.save(excel_path)
+# wb.save(excel_path)
 # 获取所有行
 # rows = []
 # row1_values = []
@@ -47,3 +47,6 @@ wb.save(excel_path)
 # for col in ws.iter_cols():
 # 	cols.append(col)
 # print("rows：{} cols:{}".format(rows[0],cols[0]))
+
+
+# 创建5层嵌套字典dict
