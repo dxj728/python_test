@@ -29,7 +29,7 @@ sys.setdefaultencoding('utf-8')
 # ws02['A2'] = datetime.datetime.now()  # 写入当前时间
 # ws02.cell(3, 3).hyperlink = 'https://www.dxj728.com'  # 插入超链接（明文）
 # ws02.cell(4, 4, value=('=HYPERLINK("{}","{}")'.format('https://www.dxj728.com', 'dxj728')))  # 插入超链接字符
-
+!
 
 # wb.save(excel_path)
 # 获取所有行
