@@ -11,7 +11,7 @@ dir_paths = r'D:\test\haha\so\e'
 file_path = r'D:\test\test.txt'
 ## *********************** os 模块 ***********************************
 
-x = os.getcwd()			# 获取当前所在路径，返回值: 字符串
+x = os.getcwd()				# 获取当前所在路径，返回值: 字符串
 
 x = os.listdir(dir_path)		# 获取指定路径下文件和目录名称的列表list，返回值: list[string,]
 

@@ -113,9 +113,17 @@ import time
 ticks = time.time()
 
 # 将时间戳转换为时间元祖类型，返回值类型：struct_time
-local_time = time.localtime(time.time())
-hour = local_time.tm_hour		# 获取当前的小时时刻,返回值类型：int
-print(local_time)
+float_time = 1567702282000
+local_time = time.localtime(float_time/1000)
+str_time = time.strftime('%Y%m%d %H%M%S', local_time)
+print(str_time)
+
+float_time = 1567698380000
+local_time = time.localtime(float_time/1000)
+str_time = time.strftime('%Y%m%d %H%M%S', local_time)
+print(str_time)
+# hour = local_time.tm_hour		# 获取当前的小时时刻,返回值类型：int
+# print(local_time)
 
 
 ## **********************************calendar类学习**************************************************
