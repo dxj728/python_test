@@ -14,6 +14,7 @@ import os
 # else:
 # 	print('主线程：%s 子线程：%s'% (os.getpid(),pid))
 
+
 import threading
 
 def action(max):
