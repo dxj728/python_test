@@ -15,17 +15,40 @@ import os
 # 	print('主线程：%s 子线程：%s'% (os.getpid(),pid))
 
 
+##-----------------windows下使用------------------
+
+# import threading
+# ''' 构造器创建线程(推荐)----------------'''
+# def action(max):
+# 	for i in range(max):
+# 		print(threading.current_thread().name + ':' + str(i))
+#
+# threading.Thread(target=action, args=(100,), name="新线程").start()
+# for i in range(100):
+# 	if i == 20:
+# 		jt = threading.Thread(target=action, args=(100,), name ="被join的线程")
+# 		jt.start()
+# 		jt.join()
+# 	print(threading.current_thread().name + ' ' + str(i))
+
 import threading
+'''继承Thread类来创建线程类------------'''
+class FkThread(threading.Thread):
+	def __init__(self):
+		threading.Thread.__init__(self)
+		self.i = 0
 
-def action(max):
-	for i in range(max):
-		print(threading.current_thread().name + ':' + str(i))
+	## 重写run方法作为线程执行体
+	def run(self):
+		while self.i < 100:
+			print(threading.current_thread().getName() + ': ' + str(self.i))
+			self.i += 1
 
-threading.Thread(target=action, args=(100,), name="新线程").start()
 for i in range(100):
+	print(threading.current_thread().getName() + ': ' + str(i))
 	if i == 20:
-		jt = threading.Thread(target=action, args=(100,), name ="被join的线程")
-		jt.start()
-		jt.join()
-	print(threading.current_thread().name + ' ' + str(i))
-
+		ft1 = FkThread()
+		ft1.start()
+		ft2 = FkThread()
+		ft2.start()
+print("执行完成")
