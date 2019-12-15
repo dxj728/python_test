@@ -2,7 +2,7 @@
 # File: test.py
 # Author: dxj728
 # Time: 2019年06月03日06时
-# 说明：
+# 说明：	命令行执行python -m pydoc -p 端口号 ，可以直接查询官方模块文档。
 
 import openpyxl, sys
 import datetime, time
