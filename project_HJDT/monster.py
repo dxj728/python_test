@@ -154,117 +154,24 @@ class Monster(Sprite):
 				bullet.x = bullet - shift
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	# 绘制子弹的方法
+	def draw_bullets(self, screen, view_manager):
+		# 遍历该怪物发射的所有子弹
+		for bullet in self.bullet_list.copy():
+			# 如果子弹已经越过了屏幕
+			if bullet.x <= 0 or bullet.x > view_manager.screen_width:
+				# 删除已经移出屏幕的子弹
+				self.bullet_list.remove(bullet)
+		# 绘制所有子弹
+		for bullet in self.bullet_list.sprites():
+			# 获取子弹对应的位图
+			bitmap = bullet.bitmap(view_manager)
+			if bitmap == None:
+				continue
+			# 子弹移动
+			bullet.move()
+			# 绘制子弹位图
+			screen.blit(bitmap, (bullet.x, bullet.y))
 
 
 
