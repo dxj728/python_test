@@ -61,21 +61,3 @@ def draw_monster(screen, view_manager):
 			del_list.append(monster)
 	die_monster_list.remove(del_list)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
