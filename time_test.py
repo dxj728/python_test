@@ -110,21 +110,40 @@ import time
 ## **********************************time类学习**************************************************
 
 # 获取当前的时间戳，返回值类型：float 单位：秒 表示范围：1970年至2038年
-ticks = time.time()
-
-# 将时间戳转换为时间元祖类型，返回值类型：struct_time
-float_time = 1567702282000
-local_time = time.localtime(float_time/1000)
-str_time = time.strftime('%Y%m%d %H%M%S', local_time)
-print(str_time)
-
-float_time = 1567698380000
-local_time = time.localtime(float_time/1000)
-str_time = time.strftime('%Y%m%d %H%M%S', local_time)
-print(str_time)
+# ticks = time.time()
+#
+# # 将时间戳转换为时间元祖类型，返回值类型：struct_time
+# float_time = 1567702282000
+# local_time = time.localtime(float_time/1000)
+# str_time = time.strftime('%Y%m%d %H%M%S', local_time)
+# print(str_time)
+#
+# float_time = 1567698380000
+# local_time = time.localtime(float_time/1000)
+# str_time = time.strftime('%Y%m%d %H%M%S', local_time)
+# print(str_time)
 # hour = local_time.tm_hour		# 获取当前的小时时刻,返回值类型：int
 # print(local_time)
 
 
+
 ## **********************************calendar类学习**************************************************
 
+# class dingshi():
+# 	def __init__(self):
+# 		pass
+#
+# 	def start(self, end_time):
+# 		while True:
+# 			str_now = datetime.datetime.now().strftime('%H:%M:%S')
+# 			if str_now == end_time:
+# 				print('time:{}'.format(str_now))
+# 				exit(-1)
+# 				break
+# 		return
+
+## ********************************判定时间区间*************************************
+
+now = datetime.datetime.now()
+b = datetime.datetime(2019,12,26,23,10)
+print(now < b)

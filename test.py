@@ -4,10 +4,10 @@
 # Time: 2019年06月03日06时
 # 说明：	命令行执行python -m pydoc -p 端口号 ，可以直接查询官方模块文档。
 
-import openpyxl, sys
+import  sys
 import datetime, time
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 
 # excel_path = r'D:\desktop\test.xlsx'
@@ -29,7 +29,6 @@ sys.setdefaultencoding('utf-8')
 # ws02['A2'] = datetime.datetime.now()  # 写入当前时间
 # ws02.cell(3, 3).hyperlink = 'https://www.dxj728.com'  # 插入超链接（明文）
 # ws02.cell(4, 4, value=('=HYPERLINK("{}","{}")'.format('https://www.dxj728.com', 'dxj728')))  # 插入超链接字符
-!
 
 # wb.save(excel_path)
 # 获取所有行
@@ -50,3 +49,10 @@ sys.setdefaultencoding('utf-8')
 
 
 # 创建5层嵌套字典dict
+
+from time_test import dingshi
+if __name__ == '__main__':
+	end_time = '23:09:10'
+	ds = dingshi()
+	ds.start(end_time)
+	print('ok')
