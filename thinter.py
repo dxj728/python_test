@@ -4,15 +4,19 @@
 # Time: 2019年07月04日23时
 # 说明：python图形化编程库thinter的使用
 
-import _tkinter
-import tkinter
-import tkinter.messagebox
+# python2 导入 from Tkinter import *
 
-root = tkinter.Tk()
-
-root.title('猜数游戏--by dxj728')
-root.geometry('280x80+400+300')
-
+# python3 导入
+from tkinter import *
+# 创建TK对象，TK代表窗口
+root = Tk()
+# 设置窗口标题
+root.title('窗口标题')
+# 创建lable对象，第一个参数指定将该Lable放入root内
+w = Label(root, text='hello, world!')
+# 调用pack进行布局
+# 启动主窗口
 root.mainloop()
+
 
 
