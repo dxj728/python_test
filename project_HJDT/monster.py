@@ -85,7 +85,7 @@ class Monster(Sprite):
 			if self.type == TYPE_BOMB:
 				draw_x = self.x - 50
 			elif self.type == TYPE_MAN:
-				draw_x == self.x + 50
+				draw_x = self.x + 50
 		# 对绘制怪物动画帧位图的Y坐标进行微调
 		draw_y = self.y - bitmap.get_height()
 		# 绘制怪物动画帧的位图

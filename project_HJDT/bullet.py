@@ -62,6 +62,12 @@ class Bullet(Sprite):
 		elif self.type == BULLET_TYPE_3:
 			return 6
 
+	# 定义控制子弹移动的方法
+	def move(self):
+		self.x += self.speed_x()
+		self.y += self.speed_y()
+
+
 
 
 
