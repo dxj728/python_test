@@ -50,9 +50,11 @@ import datetime, time
 
 # 创建5层嵌套字典dict
 
-from time_test import dingshi
-if __name__ == '__main__':
-	end_time = '23:09:10'
-	ds = dingshi()
-	ds.start(end_time)
-	print('ok')
+# from time_test import dingshi
+# if __name__ == '__main__':
+# 	end_time = '23:09:10'
+# 	ds = dingshi()
+# 	ds.start(end_time)
+# 	print('ok')
+
+import os

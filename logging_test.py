@@ -4,7 +4,8 @@
 # Time: 2019年03月04日00时
 # 说明：logging日志模块练习
 # 参考博客：https://www.cnblogs.com/Nicholas0707/p/9021672.html
-
+#	log系统1：https://www.cnblogs.com/nancyzhu/p/8551506.html
+# 	log系统2：https://www.cnblogs.com/crawer-1/p/8258146.html
 import logging
 
 
