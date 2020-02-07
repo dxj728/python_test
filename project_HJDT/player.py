@@ -52,7 +52,7 @@ class Player(Sprite):
 		# 保存角色发射的所有子弹
 		self.bullet_list = Group()
 		# 保存角色移动方式的成员变量
-		self.MOVE = MOVE_STAND
+		self.move = MOVE_STAND
 		# 控制射击状态的保留计数器
 		# 每当角色发射一枪时，left_shoot_time都会被设置为MAX_LEFT_SHOOT_TIME,然后递减
 		# 只有当left_shoot_time变为0时，角色才能发射下一枪
@@ -109,6 +109,104 @@ class Player(Sprite):
 			self.init_position()
 		return self.view_manager.X_DEFAULT - self.x
 
+	# 判断角色是否已经死亡
+	def is_die(self):
+		return self.hp <= 0
+
+	# 画角色的方法
+	def draw(self, screen):
+		# 绘制角色向右站立的动画图片
+		if self.action == ACTION_STAND_RIGHT:
+			self.draw_anim(screen, self.view_manager.leg_stand_images,
+						   self.view_manager.head_stand_images, DIR_RIGHT)
+		# 绘制角色向左站立的动画图片
+		elif self.action == ACTION_STAND_LEFT:
+			self.draw_anim(screen, self.view_manager.leg_stand_images,
+						   self.view_manager.head_stand_images, DIR_LEFT)
+		# 绘制角色向右跑动的动画图片
+		elif self.action == ACTION_RUN_RIGHT:
+			self.draw_anim(screen, self.view_manager.leg_run_images,
+						   self.view_manager.head_run_images, DIR_RIGHT)
+		# 绘制角色向左跑动的动画图片
+		elif self.action == ACTION_RUN_LEFT:
+			self.draw_anim(screen, self.view_manager.leg_run_images,
+						   self.view_manager.head_run_images, DIR_LEFT)
+		# 绘制角色向右跳动的动画图片
+		elif self.action == ACTION_JUMP_RIGHT:
+			self.draw_anim(screen, self.view_manager.leg_jump_images,
+						   self.view_manager.head_jump_images, DIR_RIGHT)
+		# 绘制角色向左跳动的动画图片
+		elif self.action == ACTION_JUMP_LEFT:
+			self.draw_anim(screen, self.view_manager.leg_jump_images,
+						   self.view_manager.head_jump_images, DIR_LEFT)
+
+
+	# 绘制角色的动画帧
+	def draw_anim(self, screen, leg_arr, head_arr_from, pdir):
+		head_arr = head_arr_from
+		# 射击状态停留次数每次减1
+		if self.left_shoot_time > 0:
+			head_arr = self.view_manager.head_shoot_images
+			self.left_shoot_time -= 1
+		self.index_leg %= len(leg_arr)
+		self.index_head %= len(head_arr)
+
+		# 先画脚
+		bitmap = leg_arr[self.index_leg]
+		draw_x = self.view_manager.X_DEFAULT
+		draw_y = self.y - bitmap.get_height()
+		# 根据角色方向判断是否需要翻转图片
+		if self.get_dir() == DIR_RIGHT:
+			# 对图片执行镜像（第二个参数控制水平镜像，第三个参数控制垂直镜像）
+			bitmap_mirror = pygame.transform.flip(bitmap, True, False)
+			screen.blit(bitmap_mirror, (draw_x, draw_y))
+		else:
+			screen.blit(bitmap, (draw_x, draw_y))
+		self.current_leg_bitmap = bitmap
+
+		# 再画头
+		bitmap2 = head_arr[self.index_head]
+		draw_x -= (bitmap2.get_width() - bitmap.get_width() >> 1)
+		if self.action == ACTION_STAND_LEFT:
+			draw_x += 6
+		draw_y = draw_y - bitmap2.get_height() + 10
+		# 根据角色方向判断是否需要翻转图片
+		if self.get_dir() == DIR_RIGHT:
+			# 对图片执行镜像（第二个参数控制水平镜像，第三个参数控制垂直镜像）
+			bitmap2_mirror = pygame.transform.flip(bitmap2, True, False)
+			screen.blit(bitmap2_mirror, (draw_x, draw_y))
+		else:
+			screen.blit(bitmap2, (draw_x, draw_y))
+		self.current_head_draw_x = draw_x
+		self.current_head_draw_y = draw_y
+		self.current_head_bitmap = bitmap2
+		# self.draw_count控制该方法每调用4次才会切换到下一帧位图
+		self.draw_count += 1
+		if self.draw_count >= 4:
+			self.draw_count = 0
+			self.index_leg += 1
+			self.index_head += 1
+		# 画子弹
+		self.draw_bullet(screen)
+		# 画左上角的角色、名字、血量
+		self.draw_head(screen)
+
+	# 判断该角色是否被子弹打中的方法
+	def is_hurt(self, start_x, end_x, start_y, end_y):
+		if self.current_head_bitmap == None or self.current_leg_bitmap == None:
+			return False
+		# 计算角色的图片所覆盖的矩形区域
+		player_start_x = self.current_head_draw_x
+		player_end_x = player_start_x + self.current_head_bitmap.get_width()
+		player_start_y = self.current_head_draw_y
+		player_end_y = player_start_y + self.current_head_bitmap.get_height() + \
+					   self.current_leg_bitmap.get_height()
+		# 如果子弹出现的位置与角色图片覆盖的矩形区域有重叠，即可判断角色被子弹打中
+		return (player_start_x < start_x < player_end_x \
+				or player_start_x < end_x < player_end_x) \
+			   and (player_start_y < start_y < player_end_y \
+					or player_start_y < end_y < player_end_y)
+
 	# 绘制角色的名字，头像，生命值的方法
 	def draw_head(self, screen):
 		if self.view_manager.head == None:
@@ -126,12 +224,120 @@ class Player(Sprite):
 		# 绘制生命值
 		screen.blit(hp_image, (self.view_manager.head.get_width(), 30))
 
+	# 发射子弹的方法
+	def add_buttet(self, view_manager):
+		# 计算子弹的初始X坐标
+		bullet_x = self.view_manager.X_DEFAULT + 50 if self.get_dir() \
+			== DIR_RIGHT else self.view_manager.X_DEFAULT - 50
+		# 创建子弹对象
+		bullet = Bullet(BULLET_TYPE_1, bullet_x, self.y - 60, self.get_dir())
+		# 将子弹对象添加到角色发射的子弹Group中
+		self.bullet_list.add(bullet)
+		# 在发射子弹时，将self.left_shoot_time设置为射击状态最大值
+		self.left_shoot_time = MAX_LEFT_SHOOT_TIME
+
+	# 绘制子弹
+	def draw_bullet(self, screen):
+		delete_list = []
+		# 遍历角色发射的所有子弹
+		for bullet in self.bullet_list.sprites():
+			# 将所有越界的子弹都收集到delete_list列表中
+			if bullet.x < 0 or bullet.x > self.view_manager.screen_width:
+				delete_list.append(bullet)
+		# 清除所有越界的子弹
+		self.bullet_list.remove(delete_list)
+		# 遍历角色发射的所有子弹
+		for bullet in self.bullet_list.sprites():
+			# 获取子弹对应的位图
+			bitmap = bullet.bitmap(self.view_manager)
+			# 子弹移动
+			bullet.move()
+			# 绘制子弹，根据子弹方向判断是否需要翻转图片
+			if bullet.dir == DIR_LEFT:
+				# 对图片执行镜像(第二个参数控制水平镜像，第三个参数控制垂直镜像)
+				bitmap_mirror = pygame.transform.flip(bitmap, True, False)
+				screen.blit(bitmap_mirror, (bullet.x, bullet.y))
+			else:
+				screen.blit(bitmap, (bullet.x, bullet.y))
+
+	# 处理角色移动的方法
+	def move_position(self, screen):
+		if self.move == MOVE_RIGHT:
+			# 更新怪物的位置
+			mm.update_posistion(screen, self.view_manager, self, 6)
+			# 更新角色的位置
+			self.x += 6
+			if not self.is_jump:
+				# 不跳跃时，需要设置动作
+				self.action = ACTION_RUN_RIGHT
+			elif self.move == MOVE_LEFT:
+				if self.x -6 < self.view_manager.X_DEFAULT:
+					# 跟新怪物的位置
+					mm.update_posistion(screen, self.view_manager, self, \
+						-(self.x - self.view_manager.X_DEFAULT))
+				else:
+					# 更新怪物的位置
+					mm.update_posistion(screen, self.view_manager, self, -6)
+				# 更新角色的位置
+				self.x -= -6
+				if not self.is_jump:
+					# 不需要跳跃时，需要设置动作
+					self.action = ACTION_JUMP_LEFT
+			elif self.action != ACTION_JUMP_RIGHT and self.action != ACTION_JUMP_LEFT:
+				if not self.is_jump:
+					# 不跳跃时，需要设置动作
+					self.action = ACTION_STAND_RIGHT
+
+	# 处理角色移动与跳跃之间的逻辑关系
+	def logic(self, screen):
+		if not self.is_jump:
+			self.move_position(screen)
+			return
+		# 如果还没跳到最高点
+		if not self.is_jump_max:
+			self.action = ACTION_JUMP_RIGHT if self.get_dir() == \
+				DIR_RIGHT else ACTION_JUMP_LEFT
+			# 更新Y坐标
+			self.y -= 8
+			# 设置子弹在Y方向上具有向上的加速度
+			self.set_bullet_y_accelate(-2)
+			# 已经达到最高点
+			if self.y <= self.view_manager.Y_JUMP_MAX:
+				self.is_jump_max = True
+		else:
+			self.jump_stop_count -= 1
+			# 如果在最高点停留的次数已经使用完
+			if self.jump_stop_count <= 0:
+				# 更新Y坐标
+				self.y += 8
+				# 设置子弹在Y方向上具有向下的加速度
+				self.set_bullet_y_accelate(2)
+				# 已经掉落到最低点
+				if self.y >= self.view_manager.Y_DEFAULT:
+					# 恢复Y坐标
+					self.y = self.view_manager.Y_DEFAULT
+					self.is_jump = False
+					self.is_jump_max = False
+					self.action = ACTION_STAND_RIGHT
+				else:
+					# 未掉落到最低点，继续使用跳落动作
+					self.action = ACTION_JUMP_RIGHT if self.get_dir() == \
+					DIR_RIGHT else ACTION_JUMP_LEFT
+			# 控制角色移动
+			self.move_position(screen)
+
+	# 更新子弹的位置（子弹位置同样会受到角色的位移的影响）
+	def update_bullet_shift(self, shift):
+		for bullet in self.bullet_list:
+			bullet.x = bullet.x - shift
 
 
-
-
-
-
+	# 给子弹设置垂直方向上的加速度
+	# 游戏的设计是：当角色跳动时，子弹会具有垂直方向上的加速度
+	def set_bullet_y_accelate(self, accelate):
+		for bullet in self.bullet_list:
+			if bullet.y_accelate == 0:
+				bullet.y_accelate = accelate
 
 
 

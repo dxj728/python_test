@@ -151,7 +151,7 @@ class Monster(Sprite):
 		self.x = self.x - shift
 		for bullet in self.bullet_list:
 			if bullet != None:
-				bullet.x = bullet - shift
+				bullet.x = bullet.x - shift
 
 
 	# 绘制子弹的方法
@@ -173,5 +173,18 @@ class Monster(Sprite):
 			# 绘制子弹位图
 			screen.blit(bitmap, (bullet.x, bullet.y))
 
+	def check_bullet(self, player):
+		# 遍历所有子弹
+		for bullet in self.bullet_list.copy():
+			if bullet == None or not bullet.is_effect:
+				continue
+			# 如果玩家控制的角色被子弹打到
+			if player.is_hurt(bullet.x, bullet.x, bullet.y, bullet.y):
+				# 将子弹设置为无效
+				bullet.is_effect = False
+				# 将玩家的生命值减5
+				player.hp = player.hp -5
+				# 删除已经打中角色的子弹
+				self.bullet_list.remove(bullet)
 
 
