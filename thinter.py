@@ -57,10 +57,53 @@
 # # 启动
 # app.mainloop()
 
-## ************************布局管理1.pack布局管理器（相对布局）**********************
+# ## ************************布局管理1.pack布局管理器（相对布局）**********************
+#
+# # python2导入 from Tkinter import *
+# # python3导入
+# from tkinter import *
+#
+# class APP:
+# 	def __init__(self, master):
+# 		self.master = master
+# 		self.initWidgets()
+#
+# 	def initWidgets(self):
+# 		# 创建的第一个容器, 容器是看不到的
+# 		fm1 = Frame(self.master)
+# 		# 该容器放在左边排列
+# 		fm1.pack(side=LEFT, fill=BOTH, expand=YES)
+# 		# 像容器1中添加三个按钮
+# 		Button(fm1, text='1.first').pack(side=TOP, fill=X, expand=YES)
+# 		Button(fm1, text='1.second').pack(side=TOP, fill=X, expand=YES)
+# 		Button(fm1, text='1.third').pack(side=TOP, fill=X, expand=YES)
+# 		# 创建的第二个容器
+# 		fm2 = Frame(self.master)
+# 		# 该容器放在左边排列，紧挨着容器1
+# 		fm2.pack(side=LEFT, padx=20, expand=YES)
+# 		# 像容器2中添加三个按钮
+# 		Button(fm2, text='2.first').pack(side=RIGHT, fill=Y, expand=YES)
+# 		Button(fm2, text='2.second').pack(side=RIGHT, fill=Y, expand=YES)
+# 		Button(fm2, text='2.third').pack(side=RIGHT, fill=Y, expand=YES)
+# 		# 创建的第三个容器
+# 		fm3 = Frame(self.master)
+# 		# 该容器放在右边排列
+# 		fm3.pack(side=RIGHT, padx=10, fill=BOTH, expand=YES)
+# 		# 像容器2中添加三个按钮
+# 		Button(fm3, text='3.first').pack(side=BOTTOM, fill=Y, expand=YES)
+# 		Button(fm3, text='3.second').pack(side=BOTTOM, fill=Y, expand=YES)
+# 		Button(fm3, text='3.third').pack(side=BOTTOM, fill=Y, expand=YES)
+#
+# root = Tk()
+# root.title("pack布局")
+# display = APP(root)
+# root.mainloop()
 
-# python2导入 from Tkinter import *
-# python3导入
+
+## ************************布局管理1.pack布局管理器（表格布局）**********************
+
+# python 2.x 使用： from Tkinter import *
+# python 3.x 使用
 from tkinter import *
 
 class APP:
@@ -69,33 +112,24 @@ class APP:
 		self.initWidgets()
 
 	def initWidgets(self):
-		# 创建的第一个容器, 容器是看不到的
-		fm1 = Frame(self.master)
-		# 该容器放在左边排列
-		fm1.pack(side=LEFT, fill=BOTH, expand=YES)
-		# 像容器1中添加三个按钮
-		Button(fm1, text='1.first').pack(side=TOP, fill=X, expand=YES)
-		Button(fm1, text='1.second').pack(side=TOP, fill=X, expand=YES)
-		Button(fm1, text='1.third').pack(side=TOP, fill=X, expand=YES)
-		# 创建的第二个容器
-		fm2 = Frame(self.master)
-		# 该容器放在左边排列，紧挨着容器1
-		fm2.pack(side=LEFT, padx=20, expand=YES)
-		# 像容器2中添加三个按钮
-		Button(fm2, text='2.first').pack(side=RIGHT, fill=Y, expand=YES)
-		Button(fm2, text='2.second').pack(side=RIGHT, fill=Y, expand=YES)
-		Button(fm2, text='2.third').pack(side=RIGHT, fill=Y, expand=YES)
-		# 创建的第三个容器
-		fm3 = Frame(self.master)
-		# 该容器放在右边排列
-		fm3.pack(side=RIGHT, padx=10, fill=BOTH, expand=YES)
-		# 像容器2中添加三个按钮
-		Button(fm3, text='3.first').pack(side=BOTTOM, fill=Y, expand=YES)
-		Button(fm3, text='3.second').pack(side=BOTTOM, fill=Y, expand=YES)
-		Button(fm3, text='3.third').pack(side=BOTTOM, fill=Y, expand=YES)
+		# 创建一个输入组件
+		e = Entry(relief=SUNKEN, font=('Courier New', 24), width=25)
+		# 对该输入组件使用pack布局， 放在容器顶部
+		e.pack(side=TOP, pady=10)
+		p = Frame(self.master)
+		p.pack(side=TOP)
+		# 定义字符串元组
+		names = ('0', '1', '2', '3', '4', '5', '6',
+				 '7', '8', '9', '+', '-', '*', '/',
+				 '.', '=')
+		# 遍历字符串元组
+		for i in range(len(names)):
+			# 创建Button, 将Button放入P组件中
+			b = Button(p, text=names[i], font=('Verdana', 20), width=6)
+			b.grid(row = i // 4, column=i % 4)
 
 root = Tk()
-root.title("pack布局")
-display = APP(root)
+root.title('Grid布局')
+APP(root)
 root.mainloop()
 
