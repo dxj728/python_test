@@ -100,36 +100,71 @@
 # root.mainloop()
 
 
-## ************************布局管理1.pack布局管理器（表格布局）**********************
+## ************************布局管理2.Grid布局管理器（表格布局）**********************
 
-# python 2.x 使用： from Tkinter import *
-# python 3.x 使用
+# # python 2.x 使用： from Tkinter import *
+# # python 3.x 使用
+# from tkinter import *
+#
+# class APP:
+# 	def __init__(self, master):
+# 		self.master = master
+# 		self.initWidgets()
+#
+# 	def initWidgets(self):
+# 		# 创建一个输入组件
+# 		e = Entry(relief=SUNKEN, font=('Courier New', 24), width=25)
+# 		# 对该输入组件使用pack布局， 放在容器顶部
+# 		e.pack(side=TOP, pady=10)
+# 		p = Frame(self.master)
+# 		p.pack(side=TOP)
+# 		# 定义字符串元组
+# 		names = ('0', '1', '2', '3', '4', '5', '6',
+# 				 '7', '8', '9', '+', '-', '*', '/',
+# 				 '.', '=')
+# 		# 遍历字符串元组
+# 		for i in range(len(names)):
+# 			# 创建Button, 将Button放入P组件中
+# 			b = Button(p, text=names[i], font=('Verdana', 20), width=6)
+# 			b.grid(row = i // 4, column=i % 4)
+#
+# root = Tk()
+# root.title('Grid布局')
+# APP(root)
+# root.mainloop()
+
+## ************************布局管理3.Place布局管理器（绝对布局）**********************
+
+# python2 使用这行 from Tkinter import *
+# python3 使用这行
 from tkinter import *
+import random
 
-class APP:
+class App:
 	def __init__(self, master):
 		self.master = master
 		self.initWidgets()
 
 	def initWidgets(self):
-		# 创建一个输入组件
-		e = Entry(relief=SUNKEN, font=('Courier New', 24), width=25)
-		# 对该输入组件使用pack布局， 放在容器顶部
-		e.pack(side=TOP, pady=10)
-		p = Frame(self.master)
-		p.pack(side=TOP)
 		# 定义字符串元组
-		names = ('0', '1', '2', '3', '4', '5', '6',
-				 '7', '8', '9', '+', '-', '*', '/',
-				 '.', '=')
-		# 遍历字符串元组
-		for i in range(len(names)):
-			# 创建Button, 将Button放入P组件中
-			b = Button(p, text=names[i], font=('Verdana', 20), width=6)
-			b.grid(row = i // 4, column=i % 4)
+		books = ('蜡笔小新第一季', '蜡笔小新第二季', '蜡笔小新第三季', '蜡笔小新第四季')
+		for i in range(len(books)):
+			# 生成3个随机数
+			ct = [random.randrange(256) for x in range(3)]
+			grayness = int(round(0.299 * ct[0] + 0.587 * ct[1] + 0.114 * ct[2]))
+			# 将元组中的3个随机数格式化成十六进制数，转换成颜色格式
+			bg_color = "#%02x%02x%02x" % tuple(ct)
+			# 创建lable，设置背景色和前景色
+			lb = Label(root, text=books[i], fg='white' if grayness < 125 else 'Black', bg=bg_color)
+			# 使用place()设置该lable的大小和位置
+			lb.place(x=20, y=30+i*36, width=180, height=30)
 
 root = Tk()
-root.title('Grid布局')
-APP(root)
+root.title('place布局学习')
+# 设置窗口大小和位置
+root.geometry('250x250+10+300')  # 主框的初始显示大小及位置  长*高+X轴偏移+Y轴偏移
+App(root)
 root.mainloop()
+
+
 
