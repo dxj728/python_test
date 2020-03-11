@@ -133,8 +133,40 @@
 # APP(root)
 # root.mainloop()
 
-## ************************布局管理3.Place布局管理器（绝对布局）**********************
+# ## ************************布局管理3.Place布局管理器（绝对布局）**********************
+#
+# # python2 使用这行 from Tkinter import *
+# # python3 使用这行
+# from tkinter import *
+# import random
+#
+# class App:
+# 	def __init__(self, master):
+# 		self.master = master
+# 		self.initWidgets()
+#
+# 	def initWidgets(self):
+# 		# 定义字符串元组
+# 		books = ('蜡笔小新第一季', '蜡笔小新第二季', '蜡笔小新第三季', '蜡笔小新第四季')
+# 		for i in range(len(books)):
+# 			# 生成3个随机数
+# 			ct = [random.randrange(256) for x in range(3)]
+# 			grayness = int(round(0.299 * ct[0] + 0.587 * ct[1] + 0.114 * ct[2]))
+# 			# 将元组中的3个随机数格式化成十六进制数，转换成颜色格式
+# 			bg_color = "#%02x%02x%02x" % tuple(ct)
+# 			# 创建lable，设置背景色和前景色
+# 			lb = Label(root, text=books[i], fg='white' if grayness < 125 else 'Black', bg=bg_color)
+# 			# 使用place()设置该lable的大小和位置
+# 			lb.place(x=20, y=30+i*36, width=180, height=30)
+#
+# root = Tk()
+# root.title('place布局学习')
+# # 设置窗口大小和位置
+# root.geometry('250x250+10+300')  # 主框的初始显示大小及位置  长*高+X轴偏移+Y轴偏移
+# App(root)
+# root.mainloop()
 
+# ## ************************事件的处理与响应**********************
 # python2 使用这行 from Tkinter import *
 # python3 使用这行
 from tkinter import *
@@ -146,25 +178,32 @@ class App:
 		self.initWidgets()
 
 	def initWidgets(self):
-		# 定义字符串元组
-		books = ('蜡笔小新第一季', '蜡笔小新第二季', '蜡笔小新第三季', '蜡笔小新第四季')
-		for i in range(len(books)):
-			# 生成3个随机数
-			ct = [random.randrange(256) for x in range(3)]
-			grayness = int(round(0.299 * ct[0] + 0.587 * ct[1] + 0.114 * ct[2]))
-			# 将元组中的3个随机数格式化成十六进制数，转换成颜色格式
-			bg_color = "#%02x%02x%02x" % tuple(ct)
-			# 创建lable，设置背景色和前景色
-			lb = Label(root, text=books[i], fg='white' if grayness < 125 else 'Black', bg=bg_color)
-			# 使用place()设置该lable的大小和位置
-			lb.place(x=20, y=30+i*36, width=180, height=30)
+		self.label = Label(self.master, width=10)
+		self.label['font'] = ('Courier', 20)
+		self.label['bg'] = 'white'
+		self.label.pack()
+		bn = Button(self.master, text='单击我', command=self.change)		# 简单的事件处理
+		bn.pack()
+
+	# 定义事件处理方法
+	def change(self):
+		self.label['text'] = '欢迎学习python'
+		# 生成3个随机数
+		ct = [random.randrange(256) for x in range(3)]
+		grayness = int(round(0.299 * ct[0] + 0.587 * ct[1] + 0.114 * ct[2]))
+		# 将元组中的三个随机数格式化成十六进制数，抓换成颜色格式
+		bg_color = "#%02x%02x%02x" %tuple(ct)
+		self.label['bg'] = bg_color
+		self.label['fg'] = 'black' if grayness > 125 else 'white'
 
 root = Tk()
-root.title('place布局学习')
-# 设置窗口大小和位置
-root.geometry('250x250+10+300')  # 主框的初始显示大小及位置  长*高+X轴偏移+Y轴偏移
+root.title('简单事件处理')
 App(root)
 root.mainloop()
+
+
+
+
 
 
 
