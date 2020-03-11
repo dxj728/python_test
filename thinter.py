@@ -166,8 +166,43 @@
 # App(root)
 # root.mainloop()
 
-# ## ************************事件的处理与响应**********************
-# python2 使用这行 from Tkinter import *
+# ## ************************简单事件的处理**********************
+# # python2 使用这行 from Tkinter import *
+# # python3 使用这行
+# from tkinter import *
+# import random
+#
+# class App:
+# 	def __init__(self, master):
+# 		self.master = master
+# 		self.initWidgets()
+#
+# 	def initWidgets(self):
+# 		self.label = Label(self.master, width=10)
+# 		self.label['font'] = ('Courier', 20)
+# 		self.label['bg'] = 'white'
+# 		self.label.pack()
+# 		bn = Button(self.master, text='单击我', command=self.change)		# 简单的事件处理
+# 		bn.pack()
+#
+# 	# 定义事件处理方法
+# 	def change(self):
+# 		self.label['text'] = '欢迎学习python'
+# 		# 生成3个随机数
+# 		ct = [random.randrange(256) for x in range(3)]
+# 		grayness = int(round(0.299 * ct[0] + 0.587 * ct[1] + 0.114 * ct[2]))
+# 		# 将元组中的三个随机数格式化成十六进制数，抓换成颜色格式
+# 		bg_color = "#%02x%02x%02x" %tuple(ct)
+# 		self.label['bg'] = bg_color
+# 		self.label['fg'] = 'black' if grayness > 125 else 'white'
+#
+# root = Tk()
+# root.title('简单事件处理')
+# App(root)
+# root.mainloop()
+
+# ## ************************绑定简单事件**********************
+
 # python3 使用这行
 from tkinter import *
 import random
@@ -178,30 +213,29 @@ class App:
 		self.initWidgets()
 
 	def initWidgets(self):
-		self.label = Label(self.master, width=10)
-		self.label['font'] = ('Courier', 20)
-		self.label['bg'] = 'white'
-		self.label.pack()
-		bn = Button(self.master, text='单击我', command=self.change)		# 简单的事件处理
-		bn.pack()
+		self.show = Label(self.master, width=30, bg='white', font=('times', 20))
+		self.show.pack()
+		bn = Button(self.master, text='单击我或双击我')
+		bn.pack(fill=BOTH, expand=YES)
+		# 为左键单击事件绑定处理方法
+		bn.bind('<Button-1>', self.one)
+		# 为左键双击事件绑定处理方法
+		bn.bind('<Double-1>', self.double)
 
-	# 定义事件处理方法
-	def change(self):
-		self.label['text'] = '欢迎学习python'
-		# 生成3个随机数
-		ct = [random.randrange(256) for x in range(3)]
-		grayness = int(round(0.299 * ct[0] + 0.587 * ct[1] + 0.114 * ct[2]))
-		# 将元组中的三个随机数格式化成十六进制数，抓换成颜色格式
-		bg_color = "#%02x%02x%02x" %tuple(ct)
-		self.label['bg'] = bg_color
-		self.label['fg'] = 'black' if grayness > 125 else 'white'
+	def one(self, event):
+		self.show['text'] = '左键单击：{}'.format(event.widget['text'])
+
+	def double(self, event):
+		self.show['text'] = "左键双击，退出程序:" + event.widget['text']
+		print("左键双击，退出程序:" + event.widget['text'])
+
+		import sys, time;
+		time.sleep(3)
 
 root = Tk()
-root.title('简单事件处理')
+root.title('简单绑定')
 App(root)
 root.mainloop()
-
-
 
 
 
