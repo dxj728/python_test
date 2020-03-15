@@ -305,11 +305,47 @@
 # App(root)
 # root.mainloop()
 
-## ******************************* ttk组件(下拉列表) ***************************
+# ## ******************************* ttk组件(下拉列表) ***************************
+#
+# # python3 使用这行
+# from tkinter import *
+# from tkinter import ttk
+#
+# class App:
+# 	def __init__(self, master):
+# 		self.master = master
+# 		self.initWidgets()
+#
+# 	def initWidgets(self):
+# 		# ttk使用了Combobox取代了Listbox
+# 		cb = ttk.Combobox(self.master, font=24)
+# 		# 为Combobox设置列表项
+# 		cb['values'] = ('python', 'swift', 'c++')
+# 		cb.pack(side=LEFT, fill=X, expand=YES)
+# 		f = ttk.Frame(self.master)
+# 		f.pack(side=RIGHT, fill=BOTH, expand=YES)
+# 		lab = ttk.Label(self.master, text='我的标签', font=24)
+# 		lab.pack(side=TOP, fill=BOTH, expand=YES)
+# 		bn = ttk.Button(self.master, text='我的按钮')
+# 		bn.pack()
+#
+# root = Tk()
+# root.title('简单事件处理')
+# App(root)
+# root.mainloop()
+
+# ******************************* tkinter 变量绑定 ***************************
 
 # python3 使用这行
 from tkinter import *
 from tkinter import ttk
+
+'''
+StringVar():用于包装str值的变量
+IntVar(): 用于包装整型值的变量
+DoubleVar(): 用于包装浮点值的变量
+BooleanVar(): 用于包装bool值的变量
+'''
 
 class App:
 	def __init__(self, master):
@@ -317,23 +353,33 @@ class App:
 		self.initWidgets()
 
 	def initWidgets(self):
-		# ttk使用了Combobox取代了Listbox
-		cb = ttk.Combobox(self.master, font=24)
-		# 为Combobox设置列表项
-		cb['values'] = ('python', 'swift', 'c++')
-		cb.pack(side=LEFT, fill=X, expand=YES)
-		f = ttk.Frame(self.master)
-		f.pack(side=RIGHT, fill=BOTH, expand=YES)
-		lab = ttk.Label(self.master, text='我的标签', font=24)
-		lab.pack(side=TOP, fill=BOTH, expand=YES)
-		bn = ttk.Button(self.master, text='我的按钮')
-		bn.pack()
+		self.st = StringVar()
+		# 创建Label组件，将其textvariable绑定到self.st变量
+		ttk.Entry(self.master, textvariable=self.st,
+				  width=24,
+				  font=('StSong', 20, 'bold'),
+				  foreground='red').pack(fill=BOTH, expand=YES)
+		# 创建Frame作为容器
+		f = Frame(self.master)
+		f.pack()
+		# 创建两个按钮，将其放入Frame中
+		ttk.Button(f, text='改变', command=self.change).pack(side=LEFT)
+		ttk.Button(f, text='获取', command=self.get).pack(side=LEFT)
+
+	def change(self):
+		books = ('疯狂python讲义', '疯狂C++讲义', '疯狂swift讲义')
+		import random
+		# 改变self.st变量的值，与之绑定的Entry的内容随之改变
+		self.st.set(books[random.randint(0, 2)])
+	def get(self):
+		from tkinter import messagebox
+		# 获取self.st的值，即获取Entry中的内容，并用消息框显示self.st的值
+		messagebox.showinfo(title='输入内容', message=self.st.get())
 
 root = Tk()
-root.title('简单事件处理')
+root.title('变量绑定测试')
 App(root)
 root.mainloop()
-
 
 
 
