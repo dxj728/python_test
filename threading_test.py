@@ -181,11 +181,11 @@ import os
 # 	# 提供一个线程安全的draw()方法来完成取钱操作
 # 	def draw(self, draw_amount):
 # 		# 加锁，相当于调用condition绑定的lock的acquire()
-# 		self.cond.acquire()
+# 		self.cond.acquire()		# timeout参数可指定超时时间
 # 		try:
 # 			# 如果self._flag为False, 则表明账户中还没有人存钱进去。取钱方式被阻塞
 # 			if not self._flag:
-# 				self.cond.wait()
+# 				self.cond.wait()		# timeout参数可指定超时时间
 # 			else:
 # 				# 执行取钱操作
 # 				print(threading.current_thread().name + "取钱：" + str(draw_amount))
@@ -233,9 +233,79 @@ import os
 # threading.Thread(name='存钱者A', target=deposit_many, args=(acct, 800, 100)).start()
 # threading.Thread(name='存钱者B', target=deposit_many, args=(acct, 800, 100)).start()
 
+# ————————————————————使用队列（Queue）控制线程通信———————————————————————————
 
+# '''简单用法示例'''
+# import queue
+#
+# # 定义一个长度为2的阻塞队列
+# bq = queue.Queue(2)
+# bq.put('python')
+# bq.put('c++')
+# print('11111111')
+# bq.put('java')		# 队列已满，此处会阻塞线程
+# print('22222222')
 
+# import threading
+# import time
+# import queue
+#
+# def product(bq):
+# 	str_tuple = ("python", 'c++', 'java')
+# 	for i in range(99999):
+# 		print(threading.current_thread().name + '生产值准备生产元组元素！')
+# 		time.sleep(0.2)
+# 		# 尝试放入元素，如果队列已满，则线程会被阻塞
+# 		bq.put(str_tuple[i % 3])
+# 		print(threading.current_thread().name + '生产者生产完成')
+#
+# def consume(bq):
+# 	while True:
+# 		print(threading.current_thread().name + '消费者准备消费元组元素')
+# 		time.sleep(0.2)
+# 		# 尝试取出元素，如果队列已空，则线程被阻塞
+# 		t = bq.get()
+# 		print(threading.current_thread().name + '消费者消费[%s]元素完成' % t)
+#
+# # 创建一个容量为1的队列
+# bq = queue.Queue(maxsize=1)
+# # 启动3个生产者线程
+# threading.Thread(name='A', target=product, args=(bq,)).start()
+# threading.Thread(name='B', target=product, args=(bq,)).start()
+# threading.Thread(name='C', target=product, args=(bq,)).start()
+# # 启动1个消费者线程
+# threading.Thread(name='甲', target=consume, args=(bq,)).start()
+# '''
+# 结果：本队列大小为1，3个生产者无法连续放入元素，必须等待消费者取出一个元素后，其中的一个生产者线程才能放入一个元素
+# '''
 
+# ————————————————————使用事件（Event）控制线程通信———————————————————————————
 
+'''简单使用示例'''
+import threading
+import time
 
+event = threading.Event()
+def cal(name):
+	# 等待事件，进入等待阻塞状态
+	print('%s启动，'% threading.currentThread().getName())
+	print('%s 准备开始计算状态' % name)
+	event.wait()		# 阻塞当前进程，timeout参数可设置阻塞事件
+	# 收到事件后进入运行状态
+	print('%s 收到通知了' % threading.currentThread().getName())
+	print('%s 正式开始计算' % name)
 
+# 创建并启动两个线程, 它们都会在wait处等待
+threading.Thread(target=cal, args=('甲')).start()
+threading.Thread(target=cal, args=('乙')).start()
+time.sleep(2)
+print('---------')
+# 发出事件
+print('主程序发出事件')
+
+'''
+set()		# 将Event的内部标志设置为True, 并唤醒所有处于等待状态的线程
+clear()		# 将Event的内部标志设置为False，一般接下来会调用wait()方法来阻塞当前线程
+wait()		# 该方法会阻塞当前线程，timeout可设置超时时间
+is_set()	# 该方法返回Event的内部旗标是否设置为True
+'''
