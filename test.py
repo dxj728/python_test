@@ -57,28 +57,59 @@ import datetime, time
 # 	ds.start(end_time)
 # 	print('ok')
 
-import os
-from scapy.all import *
-
-time_list = []
-packets = rdpcap(r"D:\desktop\p1.pcap")
-for data in packets:
-	if data.haslayer("ICMP"):
-		str_1 = repr(data)
-		# print(str_1)
-		# print(ls(data))
-		time_list.append(data.time)
-		# print(data['IP'].payload.original)  # 打印出'IP','IPV6','ARP'或者其他
-		# print(data.payload.name)#打印出'IP','IPV6','ARP'或者其他
-
-# with PcapReader(r"D:\desktop\p1.pcap") as packets: #Windows这样需要考虑转义字符
-# 	x = packets.read_all()
-# 	for data in packets.read_all():
+# import os
+# from scapy.all import *
+#
+# time_list = []
+# packets = rdpcap(r"D:\desktop\p1.pcap")
+# for data in packets:
+# 	if data.haslayer("ICMP"):
 # 		str_1 = repr(data)
-# 		print(str_1)
+# 		# print(str_1)
+# 		# print(ls(data))
+# 		time_list.append(data.time)
+# 		# print(data['IP'].payload.original)  # 打印出'IP','IPV6','ARP'或者其他
+# 		# print(data.payload.name)#打印出'IP','IPV6','ARP'或者其他
+#
+# # with PcapReader(r"D:\desktop\p1.pcap") as packets: #Windows这样需要考虑转义字符
+# # 	x = packets.read_all()
+# # 	for data in packets.read_all():
+# # 		str_1 = repr(data)
+# # 		print(str_1)
+#
+# print(time_list)
+# t1 = 1583844517.933096
+#
+# x = time_list[1] - time_list[0]
+# print(str(x*1000) + 'ms')
 
-print(time_list)
-t1 = 1583844517.933096
 
-x = time_list[1] - time_list[0]
-print(str(x*1000) + 'ms')
+def adder(x):
+	def wrapper(y):
+		return x + y
+	return wrapper
+adder5 = adder(5)
+print(adder5(adder5(6)))
+
+def func(s, i, j):
+	if i < j:
+		func(s, i + 1, j - 1)
+	s[i],s[j] = s[j], s[i]
+
+def main():
+	a = [10, 6, 23, -90, 0, 3]
+	func(a, 0, len(a)-1)
+	for i in range(6):
+		print a[i]
+		print "\n"
+main()
+
+
+
+
+
+
+
+
+
+
