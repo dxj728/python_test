@@ -95,7 +95,7 @@ class Excel(object):
 
 	# 表格的各种奇怪方法尝试练习
 	def test(self, data = None):
-		wb = openpyxl.Workbook()	# 创建文件对象
+		wb = openpyxl.load_workbook(self.excel_path)	# 创建文件对象
 		ws = wb.active		# 获取默认的第一个sheet
 
 		ws['A1'] = 42		# 写入数字
@@ -107,6 +107,12 @@ class Excel(object):
 
 		x = ws.cell(6, 6).value
 		print(x)
+		y = ws.cell(7, 1).value
+		z = ws.cell(7, 2).value
+		m = ws.cell(6, 1).value
+		n = ws.cell(6, 2).value
+
+
 		wb.save(self.excel_path)		# 存储内容至excel工作簿
 
 
@@ -115,7 +121,7 @@ if __name__ == '__main__':
 	excel_path = r'D:\desktop\test.xlsx'
 
 	excel_test = Excel(excel_path)
-	excel_test.open_excel_check()
+	# excel_test.open_excel_check()
 	# excel_test.test()
 	# x = excel_test.load_one_data(row=6, col=8)		# unicode类型
 	# y = x.split('【')[1].split('】')[0]		# unicode类型
@@ -125,4 +131,6 @@ if __name__ == '__main__':
 	# print(x)
 	# print(y)
 	# print(z)
-	excel_test.load_all_data()
+	# excel_test.load_all_data()
+	excel_test.test()
+
