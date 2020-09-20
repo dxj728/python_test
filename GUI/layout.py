@@ -1,5 +1,5 @@
 # --coding=utf-8--
-# File: thinter.py
+# File: layout.py
 # Author: dxj728
 # Time: 2019年07月04日23时
 # 说明：python图形化编程库thinter的使用
