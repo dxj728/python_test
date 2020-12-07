@@ -16,6 +16,7 @@ print(dir(list))
 
 list_demo = ['hello', 20, 'world', -5.6, 'a']
 list_demo2 = [7.2, 'ok', False]
+print(type(list_demo))  # <class 'list'>
 
 
 '''切片：
