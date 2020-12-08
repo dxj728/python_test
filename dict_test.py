@@ -11,7 +11,7 @@ print(type(dict_demo))  # <class 'dict'>
 print(dict_demo['name'])    # 访问value值
 
 '''字典创建
-	1.直接{}创建
+	1.直接{key:value}创建
 	2.dict()传入列表或元组创建
 	3.dict()传入关键字参数创建
 '''
