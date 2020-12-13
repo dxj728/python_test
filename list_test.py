@@ -103,7 +103,7 @@ str_list_demo = ['abc', 'crazyit', 'Python', 'Kotlin']  # 顺序比较ASCII码�
 		cmp: 指定的比较函数，python2可使用，python3取消该参数
 		key: 用于生成比较的键的方法，
 		reverse: 排序规则，True(降序)，False(默认升序)
-	list.copy(): 用于复制列表，返回复制后的新列表，返回值生效
+	list.copy(): 用于复制列表，返回复制后的新列表(一级目录深拷贝，二级目录浅拷贝)，返回值生效
 '''
 # print(list_demo.count(20))      # 1     \\出现1次
 # print(list_demo.index(20))      # 1     \\出现索引为1
@@ -111,5 +111,13 @@ str_list_demo = ['abc', 'crazyit', 'Python', 'Kotlin']  # 顺序比较ASCII码�
 # print(list_demo)        # ['a', -5.6, 'world', 20, 'hello']
 # int_list_demo.sort()
 # print(int_list_demo)    # [-2, 10, 15.2, 20, 102]
+
+# list_demo = ['hello', 20, 'world', -5.6, 'a', [1, 2]]
 # copy_list = list_demo.copy()
 # print(copy_list)       # ['hello', 20, 'world', -5.6, 'a']
+
+# list_demo[5].append(3)
+# print(copy_list)        # ['hello', 20, 'world', -5.6, 'a', [1, 2, 3]]
+# print(id(list_demo), id(copy_list))     # 2958292252872 2958036784136(内存地址不同)
+# print(id(list_demo[5]), id(list_demo[5]))       # 1938778453896 1938778453896(内存地址相同，浅拷贝)
+

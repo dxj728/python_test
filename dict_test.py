@@ -96,4 +96,6 @@ print(dir(dict))
 # print(dict1)    # {'user': 'root', 'num': [2, 3]}
 # print(dict2)    # {'user': 'root', 'num': [2, 3]}   \\ dict2 = dict1: 被改动完全一致
 # print(dict3)    # {'user': 'runoob', 'num': [2, 3]} \\ dict3 = dict1.copy(): user值(一级目录)未受影响，num列表值(二级列表)依然被改动
+# print(id(dict1), id(dict2), id(dict3))      # 2463125492984 2463125492984 2463125493784(内存地址1,2相同，3不同)
+# print(id(dict1['num']), id(dict2['num']), id(dict3['num']))    # 2341024912392 2341024912392 2341024912392(内存地址相同，浅拷贝)
 
