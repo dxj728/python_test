@@ -6,6 +6,8 @@
 # 参考来源：https://www.runoob.com/python/python-operators.html
 
 
+print('hello world')
+
 '''运算符优先级：由高到低
 可读性优先: 尽量保证表达式简单明了，不过多依赖以下优先级控制表达式，
 	索引运算符：[]        \\eg: list[1]
