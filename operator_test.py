@@ -3,9 +3,32 @@
 # Author: dxj728
 # Time: 2020年12月13日12时
 # 说明：运算符学习
-# 参考来源：https://www.runoob.com/python3/python3-list.html
+# 参考来源：https://www.runoob.com/python/python-operators.html
 
-x = 0
+
+'''运算符优先级：由高到低
+可读性优先: 尽量保证表达式简单明了，不过多依赖以下优先级控制表达式，
+	索引运算符：[]        \\eg: list[1]
+	属性访问：.      \\eg: C.att
+	乘方： **      \\eg: a**b
+	按位取反：~          \\eg: ~a
+	符号运算符：+ -       \\eg: -a
+	算数运算符(乘除)：* / % //      \\eg: a*b
+	算数运算符(加减)：+ -       \\eg: a+b
+	位移运算符：>> <<     \\eg: a<<b
+	按位与：&       \\eg: a & b
+	按位异或：^      \\eg: a ^ b
+	按位或：|       \\eg: a | b
+	比较运算符：> >= < <=    \\eg: a>=b
+	比较运算符(等于)：== !=    \\eg: a!=b
+	赋值运算符：= %= /= //= -= += *= **=
+	is运算符：is not is         \\eg: a is None
+	成员运算符：in not in     \\eg: a in list
+	逻辑运算符(非)：not
+	逻辑运算符(与)：and
+	逻辑运算符(或)：or
+'''
+
 '''赋值运算符：='''
 # pi = 3.14       # 为变量pi赋值为3.14
 # p = pi      # 将变量pi的值赋给p
@@ -95,3 +118,31 @@ x = 0
 #     b = 1000
 # print(C1.a is C2.a)     # True  \\小整数对象池 效果
 # print(C1.b is C2.b)     # False \\大整数对象池 效果
+
+'''
+	逻辑运算符：and  or  not
+'''
+# a = True
+# b = False
+#
+# print(a and b)      # False     \\与，需要两个参数，两者都为True才返回True
+# print(a or b)       # True      \\或，需要两个参数，两者只要有一个为True就返回True
+# print(not b)        # True      \\非，只需要一个参数，对当前结果取bool反值
+# # 编译优化会导致优先判断情况
+# # and运算优化: 当参数1已判定False情况下，会忽略对参数2的判断，直接返回False
+# # or运算优化: 当参数1已判定True情况下，会忽略对参数2的判断，直接返回True
+
+'''
+	成员运算符：in  not in
+'''
+# a = 'hello world!'
+# print('e' in a)     # True      \\判断成员是否存在于于序列中
+# print('e' not in a)     # False     \\判断成员是否不存在于序列中
+
+'''
+	一元/符号运算符：-  +(无意义)
+'''
+# a = 1.1
+# b = -2
+# print(-a)       # -1.1      \\取原值的负值
+# print(+b)       # 1.1       \\取原值的正值(还是原值)，故无意义
