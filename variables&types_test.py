@@ -54,3 +54,25 @@ print('hello world')
 #
 # print(type({1,2}))      # set集合
 
+
+'''变量作用域:
+	局部变量：函数中定义的变量，包括传参，都称为局部变量
+	全局变量：在函数外面，全局范围内定义的变量，被称为全局变量
+'''
+print(globals())    # 打印全局变量，总是返回全局变量字典
+print(locals())     # 打印当前作用域中变量，全局范围内返回全局变量字典，函数内返回当前局部变量字典
+print(vars())       # 打印指定对象范围内的所有变量字典，不传入参数的话，默认返回与locals()相同
+# 备注: locals()和globals()获取到的全局变量可以被修改应用原值，但locals()获取的局部变量修改不影响原值
+
+str1 = 'hello'      # 全局变量str1
+str2 = 'world'      # 全局变量str2
+def fun(str1='hi'):
+	print(str1)     # 局部变量str1
+	print(globals()['str2'])    # 访问全局变量str2
+	global str2
+	print(str2)     # 声明全局变量str2
+	# global str1
+	# print(str1)
+	
+
+fun()
