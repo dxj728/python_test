@@ -107,3 +107,53 @@ dict1 = {'str1': 1, 'str2': 2}
 fun_rever(**dict1)      # fun_rever(str1=1, str2=2)     \\ 等同于传入关键字参数，多传/少传均为报语法错误
 
 
+## ----------------------------函数的高级用法:函数作为传参、函数作为返回值、匿名函数----------------------------
+
+'''使用函数作为函数形参，即可在调用函数时传入不同的其他函数作为参数，动态的改变代码逻辑
+'''
+def cal(data, fn):
+	result = []
+	for e in data:
+		result.append(fn(e))
+	return result
+
+def square(n):
+	return n * n
+
+def cube(n):
+	return n * n * n
+
+data = [3, 4, 5]
+
+print(cal(data, square))        # 函数作为参数传入
+
+
+'''使用函数作为返回值：使用函数作为其他函数的返回值
+'''
+def get_math_func(type):
+	def square(n):      # 局部函数
+		return n * n
+	def cube(n):        # 局部函数
+		return n * n * n
+	if type == "square":
+		return square   # 函数作为返回值
+	else:
+		return cube
+
+
+math_func = get_math_func('square')
+print(math_func(5))
+
+
+'''匿名函数：lambda表达式
+	1.必须使用lambda关键字定义
+	2.长度只能为一行
+	3.lambda关键字之后、冒号左边为参数列表，多个参数使用逗号隔开；冒号右边是返回值
+'''
+
+print(lambda x, y: x + y)
+"""lambda表达式优点：
+	1.省略函数定义过程，使代码更简洁
+	2.可以在用完之后立即释放，提高了性能
+"""
+
