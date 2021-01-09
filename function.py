@@ -157,3 +157,43 @@ print(lambda x, y: x + y)
 	2.可以在用完之后立即释放，提高了性能
 """
 
+
+# ----------------------------偏函数----------------------------
+"""偏函数：使用functools.partial可以创建一个新的函数，新函数通过固定住原函数的部分参数定义，从而在调用时更简单。
+"""
+import functools
+int2 = functools.partial(int, base=2)       # 等同于：int(x, base=2)，只是固定了原函数的部分参数，不改变功能返回的新函数
+print(int2('10'))   # 2
+
+
+# ----------------------------@函数装饰器----------------------------
+"""函数装饰器：本质上就是一个返回函数的高阶函数
+	作用：
+		1.将被修饰的函数B作为参数传递给@符号引用的函数A
+		2.将函数B替换为函数A的返回值
+	附：在被修饰函数之前、之后、抛出异常后增加某种处理逻辑的方式，就是其他编程语言中的AOP(面相切片编程)
+"""
+import functools
+
+"""带参数的装饰器实例"""
+def log(text):  # 装饰器带参数（函数C）
+	def decorator(func):    # 装饰器（函数B）
+		@functools.wraps(func)  # 修改装饰器属性与调用函数一致，可避免签名错误
+		def wrapper(*args, **kw):       # 装饰器实际功能
+			print('%s %s():' % (text, func.__name__))
+			return func(*args, **kw)
+		return wrapper
+	return decorator
+
+
+@log('exec:')
+def now():
+	print('hello world!')
+
+
+now()
+# exec: now():
+# hello world!
+
+
+
