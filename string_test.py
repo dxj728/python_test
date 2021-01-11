@@ -104,6 +104,6 @@ print(b3)       # b'Hi'
 
 """str<-->bytes相互转换(编解码)"""
 cb_en = 'python编程语言'.encode('utf-8')
-print(cb_en)        # b'python\xe7\xbc\x96\xe7\xa8\x8b\xe8\xaf\xad\xe8\xa8\x80'
+print(cb_en)        # b'python\xe7\xbc\x96\xe7\xa8\x8b\xe8\xaf\xad\xe8\xa8\x80'     \\ 每个数据单元为1个字节(8位),\x代表16进制,e和7代表2个十六进制数(各4位)
 cb_de = cb_en.decode(encoding='utf-8')
 print(cb_de)        # python编程语言
