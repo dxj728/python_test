@@ -146,42 +146,51 @@
 		whence: 开始移动时的参考位置，默认whence=0，表示文件从头计算；whence=1时，表示从当前所在位置计算；whence=2时，表示从文件结尾计算
 	tell(): 返回文件指针的位置
 """
-f = open('test.py', 'rb+')
-
-print(f.tell())     # 打印文件指针当前所处位置
-
-f.seek(3)   # 文件指针移动到第3处(从文件开头计算)
-
-f.seek(5, 1)    # 文件指针继续向后移动5个位置(以当前位置计算)
-
-f.seek(-10, 2)  # 文件指针移动到倒数第10处
-
-
-
-
-
-
-
-
-
-
-# if __name__ == '__main__':
-# 	file_path = r'D:\git\python_test\work.txt'
+# f = open('test.py', 'rb+')
 #
-# 	f = open(file_path, 'rb', True)
-# 	str_mysql = f.read().decode('utf-8').strip()
-# 	print(str_mysql)
-# 	str_mysql = str_mysql.lower()
-# 	x = str_mysql.split('select')[1]
-# 	print(x)
-# 	y = x.split('from')[0]
-# 	print(y)
-# 	z = y.split(',')
-# 	print(z)
-# 	new_list = []
-# 	for col in z:
-# 		if 'as' in col:
-# 			col = col.split('as')[1]
-# 		col = col.strip()
-# 		new_list.append(col)
-# 	print(new_list)
+# print(f.tell())     # 打印文件指针当前所处位置
+#
+# f.seek(3)   # 文件指针移动到第3处(从文件开头计算)
+#
+# f.seek(5, 1)    # 文件指针继续向后移动5个位置(以当前位置计算)
+#
+# f.seek(-10, 2)  # 文件指针移动到倒数第10处
+
+
+"""tempfile模块：生成临时文件和临时路径"""
+
+'''创建临时文件，函数返回一个类文件对象，支持文件IO，支持with语句管理，在close时文件会被自动删除'''
+# tempfile.TemporaryFile(mode='w+b', buffering=None, encoding=None, newline=None, suffix=None, prefix=None, dir=None)
+
+'''创建临时文件，该函数的功能与上一个函数的功能大致相同，只是它生成的临时文件在文件系统中有文件名
+	增加的delete参数默认为True时，close后文件会被自动删除，delete参数为False时，文件对象在关闭时不会被删除，因此可以再后续代码中通过对象再次打开'''
+# tempfile.NamedTemporaryFile(mode='w+b', buffering=None, encoding=None, newline=None, suffix=None, prefix=None, dir=None, delete=True)
+
+'''创建临时文件，与上述函数相比，当该程序向临时文件中写入数据时，会先写入到内存中，只到超过max_size才会真正的写入到物理磁盘中
+	增加的max_size参数默认为0，当内存中需要写入数据大小超过max_size后或文件的fileno()方法被调用时，将内容写入硬盘，此时操作与TemporaryFile一致'''
+# tempfile.SpooledTemporaryFile(max_size=0, mode='w+b', buffering=None, encoding=None, newline=None, suffix=None, prefix=None, dir=None)
+
+'''生成临时目录'''
+# tempfile.TemporaryDirectory(suffix=None, prefix=None, dir=None)
+
+import tempfile
+
+fp = tempfile.TemporaryFile()
+print(fp.name)                      # C:\Users\dxj728\AppData\Local\Temp\tmppzl2lqxk    \\ 返回临时文件路径名
+
+print(tempfile.gettempdir())        # C:\Users\dxj728\AppData\Local\Temp                \\ 获取系统的临时目录
+print(tempfile.gettempdirb())       # b'C:\\Users\\dxj728\\AppData\\Local\\Temp'        \\ 与上相同，只是返回字节串
+print(tempfile.gettempprefix())     # tmp                                               \\ 返回用于生成临时文件的前缀名
+print(tempfile.gettempprefixb())    # b'tmp'                                            \\ 与上相同，只是返回字节串
+
+fp.write('hello'.encode('utf-8'))
+fp.write('world'.encode('utf-8'))
+
+fp.seek(0)      # 文件指针移到开始处，准备读取文件
+print(fp.read().decode('utf-8'))
+
+fp.close()      # 关闭临时文件，该文件会被自动删除
+
+
+with tempfile.TemporaryDirectory() as fd:   # 使用with语句创建临时目录
+	print(fd)                       # C:\Users\dxj728\AppData\Local\Temp\tmpfv9k_b8m    \\ 返回临时目录
