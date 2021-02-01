@@ -34,6 +34,10 @@ print('hello world')
 	字典：dict
 	集合: set
 '''
+int_10 = 4
+int_2 = 0b111
+int_8 = 0o54
+int_16 = 0x2f
 # print(type(4))      # int整型，十进制
 # print(type(0b111))      # int整型，二进制(0b或0B开头)
 # print(type(0o54))       # int整型，八进制(0o或0O开头)
@@ -53,6 +57,12 @@ print('hello world')
 # print(type({1: 'a', 2: 'b'}))   # dict字典
 #
 # print(type({1,2}))      # set集合
+
+'''整型进制转换'''
+# int2 = int('0b111', base=2)     # 二进制转十进制
+# int8 = int('0o54', base=8)      # 八进制转十进制
+# int16 = int('0x2f', base=16)    # 十六进制转十进制
+# print(int2, int8, int_16)       # 7 44 47
 
 
 '''变量作用域:
@@ -75,4 +85,4 @@ def fun(str1='hi'):
 	# print(str1)
 	
 
-fun()
+# fun()
