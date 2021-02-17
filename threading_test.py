@@ -134,43 +134,202 @@ import threading, time
             timeout参数：指定加锁多少秒
         release():释放锁
 """
-import threading
-
-class X:
-    """使用锁的代码格式demo"""
-    def __init__(self):
-        self.lock = threading.Lock()
-        self.Rlock = threading.RLock()
-        
-    def m(self):
-        """定义需要保证线程安全的方法"""
-        self.lock.acquire()     # 加锁
-        try:
-            print('需要保证线程安全的代码体')
-        finally:        # 使用finally来保证释放锁
-            self.lock.release()     # 修改完成释放锁
+# import threading
+# 
+# class X:
+#     """使用锁的代码格式demo"""
+#     def __init__(self):
+#         self.lock = threading.Lock()
+#         self.Rlock = threading.RLock()
+#         
+#     def m(self):
+#         """定义需要保证线程安全的方法"""
+#         self.lock.acquire()     # 加锁
+#         try:
+#             print('需要保证线程安全的代码体')
+#         finally:        # 使用finally来保证释放锁
+#             self.lock.release()     # 修改完成释放锁
 
 
 ##-----------------线程通信------------------
 
+"""1.使用Condition实现线程通信
+        threading.Condition(lock=None)
+        特点：
+            1.与线程锁搭配使用，即Condition总是需要有对应的Lock对象,初始化绑定或默认自动创建lock对象
+            2.建议使用class类保证其操作对象的完整性和一致性，即DDD设计(领域驱动设计)
+        提供方法：
+            acquire([timeout]): 调用与其相关联的Lock的acquire()方法
+            release(): 释放与其相关联的Lock的release()方法
+            wait([timeout]): 让当前线程进入Condition的等待池等待通知，并同时释放锁，直到其他线程调用notify()/notify_all()方法来唤醒线程
+                timeout参数：指定该线程最多等待多少秒
+            notify(): 任意一个线程并通知它，收到通知的线程将自动调用acquire()方法尝试加锁
+            notify_all(): 唤醒Condition等待池中的所有线程并通知它们
+"""
+
+"""Condition创建及使用示例: 间隔存钱取钱练习"""
+# import threading
+#
+# class Account:
+#
+#     def __init__(self, account_no, balance):
+#         """定义构造器, 封装账户编号和账户余额两个成员变量"""
+#         self.account_no = account_no
+#         self._balance = balance
+#         self.cond = threading.Condition()   # 创建Condition对象，Condition创建时默认生成一个Lock对象与之绑定
+#         self._flag = False      # 定义是否已经存钱的标志
+#
+#     def getBalance(self):
+#         """因为账户余额不允许随便修改，所以只为self._balance提供get方法"""
+#         return self._balance
+#
+#     def draw(self, draw_amount):
+#         """提供一个线程安全的draw()方法来完成取钱操作"""
+#         self.cond.acquire()     # 加锁，相当于调用condition绑定的lock的acquire()
+#         try:
+#             if not self._flag:
+#                 self.cond.wait()        # 调用wait方法让线程等待
+#             else:
+#                 # 执行取钱操作
+#                 print(threading.current_thread().name + "取钱：" + str(draw_amount))
+#                 self._balance -= draw_amount
+#                 print('账户余额为：' + str(self._balance))
+#                 # 将表明账户中是否已有存款的标志设置为False
+#                 self._flag = False
+#                 self.cond.notify_all()      # 唤醒其他所有线程
+#         finally:
+#             self.cond.release()     # 释放锁
+#
+#     def deposit(self, deposit_amount):
+#         """存钱操作"""
+#         self.cond.acquire()
+#         try:
+#             # 如果self._flag为True, 表明账户中已有人存钱进去，存款方法被阻塞
+#             if self._flag:
+#                 self.cond.wait()
+#             else:
+#                 # 执行存款操作
+#                 print(threading.current_thread().name + '存款：' + str(deposit_amount))
+#                 self._balance += deposit_amount
+#                 print('账户余额为：' + str(self._balance))
+#                 # 将表明账户中是否已有存钱的标志设置为True
+#                 self._flag = True
+#                 self.cond.notify_all()      # 唤醒其他所有线程
+#         finally:
+#             self.cond.release()     # 释放锁
+#
+#
+# def draw_many(account, draw_amount, max):
+#     for i in range(max):
+#         account.draw(draw_amount)
+#
+# def deposit_many(account, deposit_amount, max):
+#     for i in range(max):
+#         account.deposit(deposit_amount)
+#
+#
+# acct = Account("123456", 0)
+# threading.Thread(name='取钱者甲', target=draw_many, args=(acct, 800, 100)).start()
+# threading.Thread(name='存钱者A', target=deposit_many, args=(acct, 800, 100)).start()
+# threading.Thread(name='存钱者B', target=deposit_many, args=(acct, 800, 100)).start()
 
 
+"""2.使用Queue(队列)控制线程通信
+    使用queue模块所提供的阻塞队列实现线程通信，即队列满则加锁阻塞
+    Queue队列分类:
+        maxsize参数：队列容量上限，队列大小达到设定上限则加锁阻塞，maxsize=0或负数时，队列大小则无限制
+        1.queue.Queue(maxsize=0): 常规队列, FIFO(先进先出)
+        2.queue.LifoQueue(maxsize=0): 类似于堆栈, LIFO(后进先出)
+        3.priorityQueue(maxsize=0): 优先级队列，优先级最小则先出队列
+    Queue共有方法:
+        Queue.qsize(): 返回队列的实际大小，即队列中包含元素数量
+        Queue.empty(): 判断队列是否为空
+        Queue.full(): 判断队列是否已满
+        Queue.put(item, block=True, timeout=None): 向队列中放入元素
+            block参数：当队列已满时，block=True时当前线程被阻塞，直到队列不满; block=False时队列已满不阻塞，会引发queue.FULL异常
+            timeout参数：指定block的阻塞时间；timeout=None时会一直阻塞，直到队列不满继续执行
+        Queue.put_nowait(item): 向队列中放入元素且不阻塞，相当于Queue.put(block=False)
+        Queue.get(item, block=True, timeout=None): 从队列中取出元素
+            block参数：当队列为空时，block=True时当前线程被阻塞，直到队列中有元素；block=False时队列已空不阻塞，会引发queue.EMPTY异常
+        Queue.get_nowait(item): 从队列中取出元素且不阻塞，相当于Queue.get(block=False)
+"""
+
+"""Queue特性示范"""
+# import queue
+#
+# bq = queue.Queue(2)     # 定义一个长度为2的阻塞队列
+# bq.put('python')
+# bq.put('c++')
+# print('11111111')       # 11111111
+# bq.put('java')          # 因为队列已满，故此处将会阻塞线程
+# print('22222222')       # 无打印
 
 
+"""利用Queue队列特性控制线程示例: 生产者消费者模型"""
+# import threading
+# import time
+# import queue
+#
+# def product(bq):
+#     str_tuple = ("python", 'c++', 'java')
+#     for i in range(99999):
+#         print(threading.current_thread().name + '生产值准备生产元组元素！')
+#         time.sleep(0.2)
+#         # 尝试放入元素，如果队列已满，则线程会被阻塞
+#         bq.put(str_tuple[i % 3])
+#         print(threading.current_thread().name + '生产者生产完成：{}'.format(str_tuple[i % 3]))
+#
+# def consume(bq):
+#     while True:
+#         print(threading.current_thread().name + '消费者准备消费元组元素')
+#         time.sleep(0.2)
+#         # 尝试取出元素，如果队列已空，则线程被阻塞
+#         t = bq.get()
+#         print(threading.current_thread().name + '消费者消费元素完成:{}'.format(t))
+#
+#
+# # 本队列大小为1，3个生产者无法连续放入元素，必须等待消费者取出一个元素后，其中的一个生产者线程才能放入一个元素
+# bq = queue.Queue(maxsize=1)     # 创建队列，容量为1，将队列作为全局变量传入线程中控制阻塞运行
+# # 启动3个生产者线程
+# threading.Thread(name='A', target=product, args=(bq,)).start()
+# threading.Thread(name='B', target=product, args=(bq,)).start()
+# threading.Thread(name='C', target=product, args=(bq,)).start()
+# # 启动1个消费者线程
+# threading.Thread(name='甲', target=consume, args=(bq,)).start()
 
 
+"""3.使用Event控制线程通信
+    event = threading.Event(): 一个线程发出一个Event, 另一个线程可通过该Event被触发
+    Event通过旗标来控制线程状态，但与Condition相比，其本身并不带Lock对象
+    提供方法：
+        event.set(): 将Event的内部标志设置为True, 并唤醒所有处于等待状态的线程
+        event.clear(): 将Event的内部标志设置为False，一般接下来会调用wait()方法来阻塞当前线程
+        event.wait(timeout=None): 该方法会阻塞当前线程，timeout可设置超时时间
+        event.is_set(): 该方法返回Event的内部旗标是否设置为True
+"""
+"""Event特性示范"""
+# import threading
+# import time
+#
+# event = threading.Event()
+# def cal(name):
+#     print('%s启动，'% threading.currentThread().getName())
+#     print('%s 准备开始计算状态' % name)
+#     event.wait()        # 当前进程进入阻塞状态，等待唤醒
+#     # 收到事件后进入运行状态
+#     print('%s 收到通知了' % threading.currentThread().getName())
+#     print('%s 正式开始计算' % name)
+#
+# # 创建并启动两个线程, 它们都会在wait处等待
+# threading.Thread(target=cal, args=('甲')).start()
+# threading.Thread(target=cal, args=('乙')).start()
+# time.sleep(2)
+# print('---------')
+# print('主程序发出事件')
+# event.set()     # 调用set方法设置内部旗标为True,并唤醒所有等待的线程，此时两个子线程可以继续运行
 
 
-
-
-
-
-
-
-
-
-
-# ***************线程池**********************
+##-----------------线程池------------------
 #
 # from concurrent.futures import ThreadPoolExecutor
 # import threading
@@ -201,154 +360,3 @@ class X:
 # except Exception as e:
 # 	print('2'+ str(e))
 
-
-# ————————————————————Condition通信———————————————————————————
-#
-# '''间隔存钱取钱练习'''
-# import threading
-#
-# class Account:
-# 	# 定义构造器
-# 	def __init__(self, account_no, balance):
-# 		# 封装账户编号和账户余额两个成员变量
-# 		self.account_no = account_no
-# 		self._balance = balance
-# 		self.cond = threading.Condition()
-# 		# 定义是否已经存钱的标志
-# 		self._flag = False
-#
-# 	# 因为账户余额不允许随便修改，所以只为self._balance提供get方法
-# 	def getBalance(self):
-# 		return self._balance
-#
-# 	# 提供一个线程安全的draw()方法来完成取钱操作
-# 	def draw(self, draw_amount):
-# 		# 加锁，相当于调用condition绑定的lock的acquire()
-# 		self.cond.acquire()		# timeout参数可指定超时时间
-# 		try:
-# 			# 如果self._flag为False, 则表明账户中还没有人存钱进去。取钱方式被阻塞
-# 			if not self._flag:
-# 				self.cond.wait()		# timeout参数可指定超时时间
-# 			else:
-# 				# 执行取钱操作
-# 				print(threading.current_thread().name + "取钱：" + str(draw_amount))
-# 				self._balance -= draw_amount
-# 				print('账户余额为：' + str(self._balance))
-# 				# 将表明账户中是否已有存款的标志设置为False
-# 				self._flag = False
-# 				# 唤醒其他线程
-# 				self.cond.notify_all()
-# 		finally:
-# 			# 释放锁
-# 			self.cond.release()
-#
-# 	def deposit(self, deposit_amount):
-# 		# 加锁
-# 		self.cond.acquire()
-# 		try:
-# 			# 如果self._flag为True, 表明账户中已有人存钱进去，存款方法被阻塞
-# 			if self._flag:
-# 				self.cond.wait()
-# 			else:
-# 				# 执行存款操作
-# 				print(threading.current_thread().name + '存款：' + str(deposit_amount))
-# 				self._balance += deposit_amount
-# 				print('账户余额为：' + str(self._balance))
-# 				# 将表明账户中是否已有存钱的标志设置为True
-# 				self._flag = True
-# 				# 唤醒其他线程
-# 				self.cond.notify_all()
-# 		finally:
-# 			# 释放锁
-# 			self.cond.release()
-#
-# def draw_many(account, draw_amount, max):
-# 	for i in range(max):
-# 		account.draw(draw_amount)
-#
-# def deposit_many(account, deposit_amount, max):
-# 	for i in range(max):
-# 		account.deposit(deposit_amount)
-#
-# # 创建一个账户
-# acct = Account("123456", 0)
-# threading.Thread(name='取钱者甲', target=draw_many, args=(acct, 800, 100)).start()
-# threading.Thread(name='存钱者A', target=deposit_many, args=(acct, 800, 100)).start()
-# threading.Thread(name='存钱者B', target=deposit_many, args=(acct, 800, 100)).start()
-
-# ————————————————————使用队列（Queue）控制线程通信———————————————————————————
-
-# '''简单用法示例'''
-# import queue
-#
-# # 定义一个长度为2的阻塞队列
-# bq = queue.Queue(2)
-# bq.put('python')
-# bq.put('c++')
-# print('11111111')
-# bq.put('java')		# 队列已满，此处会阻塞线程
-# print('22222222')
-
-# import threading
-# import time
-# import queue
-#
-# def product(bq):
-# 	str_tuple = ("python", 'c++', 'java')
-# 	for i in range(99999):
-# 		print(threading.current_thread().name + '生产值准备生产元组元素！')
-# 		time.sleep(0.2)
-# 		# 尝试放入元素，如果队列已满，则线程会被阻塞
-# 		bq.put(str_tuple[i % 3])
-# 		print(threading.current_thread().name + '生产者生产完成')
-#
-# def consume(bq):
-# 	while True:
-# 		print(threading.current_thread().name + '消费者准备消费元组元素')
-# 		time.sleep(0.2)
-# 		# 尝试取出元素，如果队列已空，则线程被阻塞
-# 		t = bq.get()
-# 		print(threading.current_thread().name + '消费者消费[%s]元素完成' % t)
-#
-# # 创建一个容量为1的队列
-# bq = queue.Queue(maxsize=1)
-# # 启动3个生产者线程
-# threading.Thread(name='A', target=product, args=(bq,)).start()
-# threading.Thread(name='B', target=product, args=(bq,)).start()
-# threading.Thread(name='C', target=product, args=(bq,)).start()
-# # 启动1个消费者线程
-# threading.Thread(name='甲', target=consume, args=(bq,)).start()
-# '''
-# 结果：本队列大小为1，3个生产者无法连续放入元素，必须等待消费者取出一个元素后，其中的一个生产者线程才能放入一个元素
-# '''
-
-# ————————————————————使用事件（Event）控制线程通信———————————————————————————
-
-# '''简单使用示例'''
-# import threading
-# import time
-#
-# event = threading.Event()
-# def cal(name):
-#     # 等待事件，进入等待阻塞状态
-#     print('%s启动，'% threading.currentThread().getName())
-#     print('%s 准备开始计算状态' % name)
-#     event.wait()		# 阻塞当前进程，timeout参数可设置阻塞事件
-#     # 收到事件后进入运行状态
-#     print('%s 收到通知了' % threading.currentThread().getName())
-#     print('%s 正式开始计算' % name)
-#
-# # 创建并启动两个线程, 它们都会在wait处等待
-# threading.Thread(target=cal, args=('甲')).start()
-# threading.Thread(target=cal, args=('乙')).start()
-# time.sleep(2)
-# print('---------')
-# # 发出事件
-# print('主程序发出事件')
-#
-# '''
-# set()		# 将Event的内部标志设置为True, 并唤醒所有处于等待状态的线程
-# clear()		# 将Event的内部标志设置为False，一般接下来会调用wait()方法来阻塞当前线程
-# wait()		# 该方法会阻塞当前线程，timeout可设置超时时间
-# is_set()	# 该方法返回Event的内部旗标是否设置为True
-# '''
