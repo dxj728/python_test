@@ -329,34 +329,86 @@ import threading, time
 # event.set()     # 调用set方法设置内部旗标为True,并唤醒所有等待的线程，此时两个子线程可以继续运行
 
 
-##-----------------线程池------------------
+
+
+
+##-----------------线程池(ThreadPoolExecutor)------------------
+"""线程池：继承于Executor类，ThreadPoolExecutor用于创建线程池
+    Executor类/线程池相关方法：
+        1.submit(fn, *args, **kwargs): 提交函数fn给线程池执行，并返回Future类实例用于获取返回值
+            参数fn: 需要提交给线程池执行的函数fn
+            参数*args: 代表传给fn函数的参数
+            参数**kwargs: 代表传给fn函数的关键字参数
+        2.map(func, *iterable, timeout=None, chunksize=1): 启用多个线程使用异步方式执行任务
+            参数func: 提交给线程池执行的函数func
+            参数*iterable：可迭代对象，map会迭代其中的每一个元素作为func的参数提交任务
+            参数timeout: 超时时间，触发将抛出concurrent.futures.TimeoutError异常，timeout不指定或为None时，不限制等待时间
+            参数chunksize： 进程池有效，python3.5以后版本新增
+        3.shutdown(wait=True): 关闭线程池，使用with语句时无需显式调用
+            参数wait: True时将在所有任务执行完毕后关闭线程池，False时将在当前任务执行完成后立即关闭线程池
+    Future/返回类相关方法：
+        1.cancel(): 取消该Future代表的线程任务，该任务正在执行时不可取消，返回False，否则取消后返回True
+        2.canceled(): 返回Future代表的的线程任务是否已被成功取消
+        3.running(): 判断Future代表的线程任务是否在运行(即不可取消)，运行中返回True
+        4.done(): 判断该Future代表的线程任务是否已经取消，或已经执行完成，是则返回True
+        5.result(timeout=None): 获取该Future代表的线程任务最后返回的结果，如线程还未执行完成则阻塞等待，timeout代表阻塞超时时间
+        6.exception(timeout=None): 获取该Future代表的线程任务所引发的异常，如未引发异常，则返回None
+        7.add_done_callback(fn): 为该Future代表的线程任务注册一个“回调函数”，当任务完成时，程序自动触发fn函数
+    备注：
+        1.线程池用完后，应该调用线程池的shutdown()方法，关闭线程池
+"""
+
+
+"""线程池使用示例"""
+from concurrent.futures import ThreadPoolExecutor
+import threading
+import time
+
+
+def action(max):
+    """作为线程任务的函数fn"""
+    try:
+        my_sum = 0
+        for i in range(max):
+            print(threading.current_thread().name + ' ' + str(i))
+            my_sum += 1
+        time.sleep(1)
+        return my_sum
+    except Exception as e:
+        print('1'+ str(e))
+
+
+"""常规使用"""
+# pool = ThreadPoolExecutor(max_workers=2)    # 创建一个包含两个线程的线程池
 #
-# from concurrent.futures import ThreadPoolExecutor
-# import threading
-# import time
+# future1 = pool.submit(action, 50)       # 向线程池中提交一个任务，执行函数action,参数为50
+# future2 = pool.submit(action, 100)      # 向线程池中再提交一个任务，执行函数action,参数为100
 #
-# # 定义一个准备作为线程任务的函数
-# def action(max):
-# 	try:
-# 		my_sum = 0
-# 		for i in range(max):
-# 			print(threading.current_thread().name + ' ' + str(i))
-# 			my_sum += 1
-# 		time.sleep(20)
-# 		return my_sum
-# 	except Exception as e:
-# 		print('1'+ str(e))
+# print(future1.done())   # 判断future1代表的任务是否结束
+# print(future2.done())   # 判断future2代表的任务是否结束
 #
-# try:
-# 	# 创建一个包含两个线程的线程池
-# 	with ThreadPoolExecutor(max_workers=3) as pool:
+# print(future1.result())     # 50    \\ 查看future1代表的任务返回的结果
+# print(future2.result())     # 100   \\ 查看future2代表的任务返回的结果
 #
-# 		# 使用线程执行map计算
-# 		# 后面的元组有3个元素，
-# 		results = pool.map(action, [50, 100, 150, 200], timeout=10)
-# 		print('----------')
-# 		for r in results:
-# 			print(r)
-# except Exception as e:
-# 	print('2'+ str(e))
+# pool.shutdown()     # 关闭线程池
+
+
+"""使用回调函数获取结果：特点在于非阻塞获取返回值"""
+def get_result(future):
+    print(future.result())
+
+# future1.add_done_callback(get_result)
+# future2.add_done_callback(get_result)
+# print('--------------')     # 上述方法非阻塞，故结果将在此处下输出
+
+
+"""经典使用：使用with语句创建线程池、使用map方法启动线程"""
+# 创建一个线程池，包含三个线程
+with ThreadPoolExecutor(max_workers=3) as pool:
+    # 使用map来启动4个线程，map()方法的返回值会依序收集每个线程任务的返回值
+    results = pool.map(action, [50, 100, 150, 200], timeout=10)
+    print('----------')
+    for r in results:       # map()返回值为可迭代对象
+        print(r)
+
 
