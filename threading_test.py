@@ -126,7 +126,7 @@ import threading, time
 ##-----------------线程锁------------------
 """线程锁
     分类：
-        threading.Lock(): 基本锁对象，每次只能锁定一次，其余的锁清秋，需等待锁释放后才能获取
+        threading.Lock(): 基本锁对象，每次只能锁定一次，其余的锁请求，需等待锁释放后才能获取
         threading.RLock(): 可重入锁(常用)，可以在同一个线程中进行多次锁定，也可以多次释放，其acquire()和release()方法必须成对出现
     方法：
         acquire(blocking=True, timeout=-1): 请求对Lock或RLock加锁，
@@ -416,27 +416,46 @@ def get_result(future):
 """1. 线程局部变量
         threading模块下提供了一个local()函数可以返回一个线程局部变量，类似于dict，为每一个使用该变量的线程提供一个变量的副本，即每一个线程都可以独立使用副本而不产生冲突
 """
-import threading
-from concurrent.futures import ThreadPoolExecutor
+# import threading
+# from concurrent.futures import ThreadPoolExecutor
+#
+#
+# mydata = threading.local()      # 定义线程局部变量
+# mydata.x = 0
+#
+# def action1(max):
+#     for i in range(max):
+#         try:
+#             mydata.x += i
+#         except:
+#             mydata.x = i
+#         # 访问mydata的x的值
+#         print('%s mydata.x的值为: %d' % (threading.current_thread().name, mydata.x))
+#
+#
+# with ThreadPoolExecutor(max_workers=4) as pool:
+#     result = pool.map(action1, (10, 10))
+#     print('------')
+#     for r in result:
+#         print(r)
 
-
-mydata = threading.local()      # 定义线程局部变量
-mydata.x = 0
-
-def action1(max):
-    for i in range(max):
-        try:
-            mydata.x += i
-        except:
-            mydata.x = i
-        # 访问mydata的x的值
-        print('%s mydata.x的值为: %d' % (threading.current_thread().name, mydata.x))
-
-
-with ThreadPoolExecutor(max_workers=4) as pool:
-    result = pool.map(action1, (10, 10))
-    print('------')
-    for r in result:
-        print(r)
-
-
+"""2. 定时器
+        thread的派生类，可以控制函数在特定时间内执行一次
+        特点：可以实现函数的延迟调用，自我调用
+"""
+# from threading import Timer
+# import time
+#
+# # 定义总共输出几次的计数器
+# count = 0
+# def print_time():
+#     print("当前时间：%s" % time.ctime())
+#     global t, count
+#     count += 1
+#     # 如果count小于10，开始下一次调度
+#     if count < 10:
+#         t = Timer(1, print_time)
+#         t.start()
+# # 指定1秒后执行print_time函数
+# t = Timer(1, print_time)
+# t.start()
