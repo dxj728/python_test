@@ -404,11 +404,39 @@ def get_result(future):
 
 """经典使用：使用with语句创建线程池、使用map方法启动线程"""
 # 创建一个线程池，包含三个线程
-with ThreadPoolExecutor(max_workers=3) as pool:
-    # 使用map来启动4个线程，map()方法的返回值会依序收集每个线程任务的返回值
-    results = pool.map(action, [50, 100, 150, 200], timeout=10)
-    print('----------')
-    for r in results:       # map()返回值为可迭代对象
+# with ThreadPoolExecutor(max_workers=3) as pool:
+#     # 使用map来启动4个线程，map()方法的返回值会依序收集每个线程任务的返回值
+#     results = pool.map(action, [50, 100, 150, 200], timeout=10)
+#     print('----------')
+#     for r in results:       # map()返回值为可迭代对象
+#         print(r)
+
+
+##-----------------线程其他相关------------------
+"""1. 线程局部变量
+        threading模块下提供了一个local()函数可以返回一个线程局部变量，类似于dict，为每一个使用该变量的线程提供一个变量的副本，即每一个线程都可以独立使用副本而不产生冲突
+"""
+import threading
+from concurrent.futures import ThreadPoolExecutor
+
+
+mydata = threading.local()      # 定义线程局部变量
+mydata.x = 0
+
+def action1(max):
+    for i in range(max):
+        try:
+            mydata.x += i
+        except:
+            mydata.x = i
+        # 访问mydata的x的值
+        print('%s mydata.x的值为: %d' % (threading.current_thread().name, mydata.x))
+
+
+with ThreadPoolExecutor(max_workers=4) as pool:
+    result = pool.map(action1, (10, 10))
+    print('------')
+    for r in result:
         print(r)
 
 
