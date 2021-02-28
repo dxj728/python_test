@@ -459,3 +459,49 @@ def get_result(future):
 # # 指定1秒后执行print_time函数
 # t = Timer(1, print_time)
 # t.start()
+
+"""3.任务调度(sched模块)
+    该模块提供了sched.scheduler类，该类代表一个任务调度器
+    该任务调度器构造如下：
+        s = sched.scheduler(timefunc=time.monotonic, delayfunc=time.sleep)
+        参数timefunc：该参数指定生成时间戳的时间函数，默认使用time.monotonic来生成时间戳
+        参数delayfunc：该参数指定阻塞程序的函数，默认使用time.sleep函数来阻塞程序
+    构造器返回值s支持如下的常用属性和方法
+        1. s.enterabs(time, priority, action, argument=(), kwargs={}): 指定在time时间点执行action函数，
+                        argument为action位置参数，kwargs为action关键字参数，priority参数指定该任务优先级，值越小优先级越高，优先级越高的任务越先执行
+                        该方法返回一个event，可作为后续cancel()方法的参数用于取消该调度,
+        2. s.enter(delay, priority, action, argument=(), kwargs={}): 与上述方法使用基本想用，只是delay参数用于指定多少秒之后执行action任务
+        3. s.cancel(event): 用于取消任务，如果event参数非当前调度队列的event或其他值，则程序会引发ValueError异常
+        4. s.empty(): 判断当前任务调度器的调度队列是否为空
+        5. s.run(blocking=True): 运行所有需要调度的任务。如果blocking=True时，该方法会阻塞线程，直到所有调度任务都执行完成
+        6. s.queue(): 以只读属性返回该调度器的调度队列
+"""
+
+# import sched, time
+# import threading
+#
+# s = sched.scheduler()       # 定义线程调度器
+#
+# def print_time(name='default'):
+#     '''定义被调度的函数'''
+#     print("%s 的时间: %s" % (name, time.ctime()))
+#
+#
+# print('主线程：', time.ctime())
+# # 指定10秒之后执行print_time函数
+# s.enter(10, 1, print_time)
+# # 指定5秒之后执行print_time函数，优先级为2
+# s.enter(5, 2, print_time, argument=('位置参数',))
+# # 指定5秒之后执行print_time函数，优先级为1
+# s.enter(5, 1, print_time, kwargs={'name': '关键字参数'})
+# # 执行调度的任务
+# s.run()
+# print('主线程：', time.ctime())
+
+
+# 上述输出。。。
+# 主线程： Sun Feb 28 23:57:14 2021
+# 关键字参数 的时间: Sun Feb 28 23:57:19 2021
+# 位置参数 的时间: Sun Feb 28 23:57:19 2021
+# default 的时间: Sun Feb 28 23:57:24 2021
+# 主线程： Sun Feb 28 23:57:24 2021
