@@ -48,16 +48,6 @@ import os
         用于指定线程阻塞多少秒
 """
 
-
-##-----------------linux下创建线程及使用：fork()------------------
-# print("当前进程是： %s" %os.getpid())
-# pid = os.fork()
-# if pid == 0:
-#   print('生成的子线程：%s 当前父线程: %s '%(os.getpid(),os.getppid()))
-# else:
-#   print('主线程：%s 子线程：%s'% (os.getpid(),pid))
-
-
 ## -----------------windows下创建线程及使用1：直接创建（推荐）------------------
 
 import threading, time
