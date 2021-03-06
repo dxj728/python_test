@@ -147,10 +147,72 @@ import os
 
 
 # -----------------进程间通信------------------
+"""1.使用multiprocessing.Queue(队列)实现进程通信
+    Queue: 一个进程向Queue中放入数据，另一个进程从Queue中读取数据
+    q = multiprocessing.Queue()
+    相关方法:
+        q.qsize(): 返回队列的实际大小，即队列中包含元素数量
+        q.empty(): 判断队列是否为空
+        q.full(): 判断队列是否已满
+        q.put(item, block=True, timeout=None): 向队列中放入元素
+            block参数：当队列已满时，block=True时当前线程被阻塞，直到队列不满; block=False时队列已满不阻塞，会引发queue.FULL异常
+            timeout参数：指定block的阻塞时间；timeout=None时会一直阻塞，直到队列不满继续执行
+        q.put_nowait(item): 向队列中放入元素且不阻塞，相当于Queue.put(block=False)
+        q.get(item, block=True, timeout=None): 从队列中取出元素
+            block参数：当队列为空时，block=True时当前线程被阻塞，直到队列中有元素；block=False时队列已空不阻塞，会引发queue.EMPTY异常
+        q.get_nowait(item): 从队列中取出元素且不阻塞，相当于Queue.get(block=False)
+    备注：
+        与queue模块下的Queue相似，区别在于multiprocessing模块下的Queue为进程提供服务，queue模块下的Queue为线程提供服务。
+"""
 
+"""multiprocessing.Queue特性示范"""
+# import multiprocessing
+#
+# def func(queue):
+#     '''进程任务的执行函数'''
+#     print('{}进程开始放入数据...'.format(multiprocessing.current_process().pid))
+#     queue.put('python')     # 进程(子进程)取出数据
+#
+# if __name__ == '__main__':
+#     queue = multiprocessing.Queue()     # 创建进程通信的Queue
+#     p = multiprocessing.Process(target=func, args=(queue,))     # 创建子进程
+#     p.start()
+#     print('{}进程开始取出数据...'.format(multiprocessing.current_process().pid))    # 其他进程(父进程)取出数据
+#     print(queue.get())
+#     p.join()
 
+"""2.使用pipe(管道)实现进程通信
+    parent_conn, child_conn = multiprocessing.Pipe()
+    使用multiprocessing.Pipe()来创建一个管道，该方法返回两个PipeConnection对象，代表管道的两个连接端(一个管道有两个连接端，分别用于连接通信的两个进程)
+    PipeConnection对象相关方法：
+        1. send(obj): 发送一个obj给管道的另一端，另一端使用recv()方法接收。发送对象必须是可picklable的(python的序列化机制)，如果该对象序列化后超过32M，则会引发ValueError异常
+        2. recv(): 接收另一端通过send()方法发送过来的数据
+        3. fileno(): 关于连接所使用的文件描述符
+        4. close(): 关闭连接
+        5. poll([timeout]): 返回连接中是否还有数据可被获取
+        6. send_bytes(buffer, offset, size): 发送字节数据，不指定offset和size参数，则默认发送buffer字节串的全部数据
+            offset参数: 指定buffer字节串发送的初始偏移位
+            size参数：指定buffer字节串中发送的长度大小
+            通过指定offset和size参数发送的数据，应该使用recv_bytes()或recv_bytes_into方法接收
+        7. recv_bytes(maxlength): 接收通过send_bytes()方法发送的数据，maxlength指定最多接收的字节数，该方法返回接收到的字节数据
+        8. recv_bytes_into(buffer, offset): 功能与recv_bytes()方法类似，只是该方法将接收到的数据放入buffer中
+"""
 
+"""multiprocessing.Pipe特性示范"""
+import multiprocessing
 
+def func(conn):
+    '''进程任务的执行函数'''
+    print('{}进程开始发送数据'.format(multiprocessing.current_process().pid))
+    conn.send('python')     # 进程(子进程)使用conn发送数据
+    
+if __name__ == '__main__':
+    parent_conn, child_conn = multiprocessing.Pipe()    # 创建Pipe，该函数返回两个PipeConnection对象
+    p = multiprocessing.Process(target=func, args=(child_conn,))  # 创建子进程
+    p.start()
+    print('{}进程开始接收数据...'.format(multiprocessing.current_process().pid))
+    print(parent_conn.recv())   # 其他进程(父进程)通过conn读取数据
+    p.join()
 
 
 
