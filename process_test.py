@@ -199,20 +199,20 @@ import os
 """
 
 """multiprocessing.Pipe特性示范"""
-import multiprocessing
-
-def func(conn):
-    '''进程任务的执行函数'''
-    print('{}进程开始发送数据'.format(multiprocessing.current_process().pid))
-    conn.send('python')     # 进程(子进程)使用conn发送数据
-    
-if __name__ == '__main__':
-    parent_conn, child_conn = multiprocessing.Pipe()    # 创建Pipe，该函数返回两个PipeConnection对象
-    p = multiprocessing.Process(target=func, args=(child_conn,))  # 创建子进程
-    p.start()
-    print('{}进程开始接收数据...'.format(multiprocessing.current_process().pid))
-    print(parent_conn.recv())   # 其他进程(父进程)通过conn读取数据
-    p.join()
+# import multiprocessing
+#
+# def func(conn):
+#     '''进程任务的执行函数'''
+#     print('{}进程开始发送数据'.format(multiprocessing.current_process().pid))
+#     conn.send('python')     # 进程(子进程)使用conn发送数据
+#
+# if __name__ == '__main__':
+#     parent_conn, child_conn = multiprocessing.Pipe()    # 创建Pipe，该函数返回两个PipeConnection对象
+#     p = multiprocessing.Process(target=func, args=(child_conn,))  # 创建子进程
+#     p.start()
+#     print('{}进程开始接收数据...'.format(multiprocessing.current_process().pid))
+#     print(parent_conn.recv())   # 其他进程(父进程)通过conn读取数据
+#     p.join()
 
 
 
