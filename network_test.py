@@ -25,6 +25,8 @@ TCP/IP五层模型
     1.客户端主动发送一段TCP报文，其中标志位SYN(发起一个新连接)，序号seq=X(默认为1)，发送后客户端进入SYN-SENT状态
     2.服务端接收到报文后，结束LISTEN阶段，后返回给客户端一段TCP报文，其中标志位SYN和ACK(确认客户端报文seq有效，服务端可以正常接收，同意创建新连接)，发送后服务端进入SYN-SENT状态
     3.客户端收到服务端的报文后，结束SYN-SENT状态，返回最后一段报文，其中标志位ACK(确认收到服务器端同意连接的信号)，发送后客户端进入ESTABLISHED状态
+
+
     服务端收到客户端报文后，结束SYN-SENT状态，也进入ESTABLISHED状态
 四次挥手(TCP连接释放)
     0.客户端主动结束ESTABLISHED状态
@@ -40,3 +42,16 @@ TCP/IP五层模型
         故客户端在2MSL内再次收到服务器端的FIN报文，则说明服务器未能接收到客户端发出的ACK报文。则需再次发送ACK报文并重新计时2MSL。
 """
 
+"""socket编程
+    s = socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)
+        family参数: 指定网络类型，支持常量为AF_UNIX(UNIX网络)/AF_INET(基于IPV4的网络)/AF_INET6(基于IPV6的网络)
+        type参数: 指定网络sock类型，支持选项为SOCK_STREAM(默认值，创建基于TCP协议的socket)/SOCK_DGRAM(创建基于UDP协议的socket)/SOCK_RAM(创建原始socket)
+        prono参数：指定协议号，无特殊要求则该值默认为0，并可以忽略
+    socket对象s提供的方法：
+        1. s.accept(): 接收来自客户端socket的连接，常作为服务端socket使用
+        2. s.bind(address): 作为服务端使用的socket调用该方法，将socket绑定到指定address，address可作为元组包含IP地址和端口
+        3. s.close(): 关闭连接，回收资源
+        4. s.connect(address): 作为客户端使用的socket调用该方法连接服务端
+    
+
+"""
