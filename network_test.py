@@ -52,6 +52,41 @@ TCP/IP五层模型
         2. s.bind(address): 作为服务端使用的socket调用该方法，将socket绑定到指定address，address可作为元组包含IP地址和端口
         3. s.close(): 关闭连接，回收资源
         4. s.connect(address): 作为客户端使用的socket调用该方法连接服务端
-    
-
+        5. s.connect_ex(address): 该方法与connect()方法功能相同，只是程序出错时，该方法不会抛出异常，而是返回一个错误标识符
+        6. s.listen(): 作为服务器端使用的socket调用该方法进行监听
+        7. s.makefile(mode='r', buffering=None, *, encodeing=None, errors=None, newline=None): 创建一个和该socket关联的文件对象
+        8. s.recv(bufsize, flags): 接收socket中的数据，该方法返回bytes对象代表接收到的数据
+        9. s.recv_into(): 类似于recv()方法，但是该方法将接收到的数据放入buffer中
+        10. s.recvfrom(bufsize, flags): 该方法与recv方法功能相同，只是该方法的返回值是(bytes, address)元组
+        11. s.recvfrom_into(buffer, nbytes, flags): 类似于socket.recvfrom()方法，但该方法将接收到的数据放入buffer中
+        12. s.recvmsg(bufsize, ancbufsize, flag): 该方法不仅接收来自socket的数据，还接收来自socket的辅助数据，因此该方法返回一个长度为4的元组(data, ancdata, msg_flags, address)
+        13. s.recvmsg_into(buffer, ancbufsize, flags): 类似于recvfrom()方法，但该方法将接收到的数据放入buffer中
+        14. s.send(bytes, flags): 向socket发送数据，该socket必须与远程socket建立了连接，该方法通常用于在基于TCP协议的网络中发送数据
+        15. s.sendto(bytes, address): 向socket发送数据，该socket应该没有与远程socket建立建立，该方法通常用于在基于UDP协议的网络中发送数据
+        16. s.sendfile(file, offset=0, count=None): 将整个文件内容都发送出去，直到遇到文件的EOF
+        17. s.shutdown(how): 关闭连接，其中how用于设置关闭方式
 """
+
+"""代码示例：使用socket通信(TCP协议)"""
+
+"""------服务端代码------"""
+# import socket
+#
+# s_socket = socket.socket()      # 创建socket对象
+# s_socket.bind(('127.0.0.1', 30000))     # 绑定socket到本机IP地址和端口
+# s_socket.listen()   # 服务器开始监听来自客户端的连接
+# while True:
+#     c_socket, address = s_socket.accept()   # 每当接收到客户端的socket请求时，该方法就返回对应的socket和远程地址
+#     print('{}，连接地址：{}'.format(c_socket, address))     # c_socket为接收到的socket相关信息
+#     c_socket.send('hello world'.encode('utf-8'))
+#     c_socket.close()    # 关闭连接
+
+
+"""------客户端代码------"""
+# import socket
+#
+# s = socket.socket()
+# s.connect(('127.0.0.1', 30000))
+# print('---{}---'.format(s.recv(1024).decode('utf-8')))
+# s.close()
+
