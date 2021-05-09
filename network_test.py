@@ -69,6 +69,8 @@ TCP/IP五层模型
 
 """代码示例：使用socket通信(TCP协议)"""
 
+
+
 """------服务端代码------"""
 # import socket
 #
@@ -89,4 +91,7 @@ TCP/IP五层模型
 # s.connect(('127.0.0.1', 30000))
 # print('---{}---'.format(s.recv(1024).decode('utf-8')))
 # s.close()
+
+
+
 

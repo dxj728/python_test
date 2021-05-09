@@ -19,7 +19,7 @@ class Spider(object):
 		}
 		self.__login_url = 'https://github.com/login'
 		self.session = requests.session()
-
+	
 	# 获取登录界面上的authenticity_token数据信息
 	# 返回值：authenticity_token值（字符串）
 	def __get_token(self):
@@ -31,7 +31,7 @@ class Spider(object):
 		token = selector.xpath('//form/input[2]/@value')
 		print(token)
 		return token
-
+	
 	# 实现模拟登录，并打印获取到的数据
 	def login(self, name, password):
 		token = self.__get_token()
@@ -54,6 +54,6 @@ class Spider(object):
 if __name__ == '__main__':
 
 	name = 'dxj728'
-	password = '******'
+	password = 'HJKLiop123'
 	git_spider = Spider()
 	git_spider.login(name, password)

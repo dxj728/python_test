@@ -83,6 +83,159 @@ import datetime, time
 # x = time_list[1] - time_list[0]
 # print(str(x*1000) + 'ms')
 
+# import subprocess
+# # Fetches the list of all usb devices:
+# result = subprocess.run(['devcon', 'hwids', '=usb'], capture_output=True, text=True)
+# print(result)
+
+# # ... add code to parse the result and get the hwid of the device you want ...
+#
+# subprocess.run(['devcon', 'disable', parsed_hwid]) # to disable
+# subprocess.run(['devcon', 'enable', parsed_hwid]) # to enable
+
+# x = [1,2,3,4]
+# y = x
+# x.pop()
+# print(x)
+# print(y)
+
+# class grade:
+# 	pass
+#
+#
+#
+# if __name__ == '__main__':
+# 	n, m = input().strip().split()
+# 	grade_list = map(int, input().strip().split())
+# 	operate_list = [input() for x in range(0, m)]
+# 	print(n, m)
+# 	print(grade_list)
+# 	print(operate_list)
+
+# def deal_str(str1):
+# 	ret_list = []
+# 	if len(str1) <= 8:
+# 		ret_list.append(str1.ljust(8, '0'))
+# 		return ret_list
+# 	else:
+# 		n = int(len(str1) / 8)
+# 		for i in range(n):
+# 			ret_list.append(str1[i*8:i*8+8])
+# 		if len(str1) % 8 != 0:
+# 			y = len(str1) % 8
+# 			str2 = str1[8*n:]
+# 			ret_list.append(str2.ljust(8, '0'))
+# 		return ret_list
+#
+# if __name__ == '__main__':
+# 	str1 = input().strip()
+# 	if len(str1) == 0:
+# 		print(str1)
+# 	else:
+# 		ret_list = deal_str(str1)
+# 		print('\n'.join(map(str, ret_list)))
+
+# import os, sys
+# if os.path.exists('1.txt'):
+#     print('存在')
+#     time.sleep(3)
+#     sys.exit(0)
+# else:
+#     print('无')
+#     time.sleep(3)
+#     sys.exit(-1)
+
+# cb_en = 'python编程语言'.encode('utf-8')
+# print(cb_en)        # b'python\xe7\xbc\x96\xe7\xa8\x8b\xe8\xaf\xad\xe8\xa8\x80'     \\ 每个数据单元为1个字节(8位),\x代表16进制,e和7代表2个十六进制数(各4位)
+# cb_de = cb_en.decode(encoding='utf-8')
+# print(cb_de)        # python编程语言
+#
+# en=b'\x90'
+
+
+# def get_hight(height, count):
+#     sum = 2 ** height
+#     while sum < count:
+#         height = height + 1
+#         temp = 2 ** height
+#         sum = sum + temp
+#     return height + 1
+#
+# def get_result(test_list):
+#     height = 0
+#     start = test_list[0:1]
+#     result_list = []
+#     result_list.append(start)
+#     sum = 1
+#     while sum < len(test_list):
+#         height = height + 1
+#         temp = 2 ** height
+#         start = sum
+#         end = sum + temp
+#         if end > len(test_list):
+#             end = len(test_list) - 1
+#         temp_list = test_list[start:end]
+#         for i in range(0, len(temp_list)):
+#             if None in temp_list:
+#                 temp_list.remove(None)
+#         result_list.append(temp_list)
+#         sum = sum + temp
+#     return result_list
+#
+# if __name__ == '__main__':
+#     test_list = [3, 9, 20, None, None, 15, 7]
+#     # print(len(test_list))
+#     # height = get_hight(0, 7)
+#     # print(height)
+#     # start_node = test_list[0]
+#     result_list = get_result(test_list)
+#     print(result_list)
+
+
+# import socket
+#
+# s = socket.socket()
+# s.connect(('127.0.0.1', 30000))
+# print('---{}---'.format(s.recv(1024).decode('utf-8')))
+# s.close()
+
+import openpyxl
+from openpyxl.drawing.image import Image
+
+def insert_image(insert_location, image_path):
+
+    # # 要插入的图片路径、插入后的图片尺寸
+    # print(image_path)
+
+    img = Image(image_path)
+    new_size = (150, 80)
+    img.width, img.height = new_size
+
+    sheet[insert_location] = ""
+    sheet.add_image(img, insert_location)
+
+    wb.save(xlsx_path)
+    print("插入成功!")
+
+xlsx_path = r'D:\desktop\teste.xlsx'
+image_absolute_path = r'D:\desktop\1.jpg'
+
+wb = openpyxl.load_workbook(xlsx_path)
+sheet = wb["Sheet1"]
+
+# FileObj = xlrd.open_workbook(xlsx_path)
+# # 查找id_number所在的位置
+# sheet_x = FileObj.sheet_by_name("基本信息表")
+# row_count = sheet_x.nrows
+# lists = sheet_x.col_values(10)
+
+
+insert_image("D3", image_absolute_path)
+
+
+
+
+
 
 
 
