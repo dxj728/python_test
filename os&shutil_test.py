@@ -13,6 +13,7 @@ excel_path = r'D:\desktop\test.xlsx'
 time = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 
 excel_dir = os.path.dirname(excel_path)		# 获取当前文件路径的上级目录路径
+print(excel_dir)
 test_dir = os.path.join(excel_dir, 'test')		# 通用路径拼接方法，返回各系统的正确路径
 copy_excel_path = os.path.join(test_dir, '备份'+time+'.xlsx')
 

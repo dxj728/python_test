@@ -199,29 +199,29 @@ import datetime, time
 # print('---{}---'.format(s.recv(1024).decode('utf-8')))
 # s.close()
 
-import openpyxl
-from openpyxl.drawing.image import Image
-
-def insert_image(insert_location, image_path):
-
-    # # 要插入的图片路径、插入后的图片尺寸
-    # print(image_path)
-
-    img = Image(image_path)
-    new_size = (150, 80)
-    img.width, img.height = new_size
-
-    sheet[insert_location] = ""
-    sheet.add_image(img, insert_location)
-
-    wb.save(xlsx_path)
-    print("插入成功!")
-
-xlsx_path = r'D:\desktop\teste.xlsx'
-image_absolute_path = r'D:\desktop\1.jpg'
-
-wb = openpyxl.load_workbook(xlsx_path)
-sheet = wb["Sheet1"]
+# import openpyxl
+# from openpyxl.drawing.image import Image
+#
+# def insert_image(insert_location, image_path):
+#
+#     # # 要插入的图片路径、插入后的图片尺寸
+#     # print(image_path)
+#
+#     img = Image(image_path)
+#     new_size = (150, 80)
+#     img.width, img.height = new_size
+#
+#     sheet[insert_location] = ""
+#     sheet.add_image(img, insert_location)
+#
+#     wb.save(xlsx_path)
+#     print("插入成功!")
+#
+# xlsx_path = r'D:\desktop\teste.xlsx'
+# image_absolute_path = r'D:\desktop\1.jpg'
+#
+# wb = openpyxl.load_workbook(xlsx_path)
+# sheet = wb["Sheet1"]
 
 # FileObj = xlrd.open_workbook(xlsx_path)
 # # 查找id_number所在的位置
@@ -230,10 +230,25 @@ sheet = wb["Sheet1"]
 # lists = sheet_x.col_values(10)
 
 
-insert_image("D3", image_absolute_path)
+# insert_image("D3", image_absolute_path)
 
+import tkinter as tk
+from tkinter import ttk
+import time
 
-
+def increment(*args):
+    for i in range(100):
+        p1["value"] = i+1
+        root.update()
+        time.sleep(0.1)
+root = tk.Tk()
+root.geometry('320x240')
+p1 = ttk.Progressbar(root, length=200, mode="determinate",
+                     maximum=200,orient=tk.HORIZONTAL)
+p1.grid(row=1,column=1)
+btn = ttk.Button(root,text="Start",command=increment)
+btn.grid(row=1,column=0)
+root.mainloop()
 
 
 
