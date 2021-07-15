@@ -91,7 +91,7 @@
 # 			break
 # 		print(line)
 # 		'''2.2 使用readlines()读取所有行，返回所有行组成的列表，可使用for ... in ...结构处理'''
-# 		for cur_line in f.readline():
+# 		for cur_line in f.readlines():
 # 			print(cur_line)
 #
 # finally:
