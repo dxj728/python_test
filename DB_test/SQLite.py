@@ -13,7 +13,6 @@
     除integer primary key定义的字段只能存储64位整数以外，允许各种类型的数据保存到任何类型的字段中，即存入数据时忽略底层数据列实际的类型，亦可以建表时省略字段后的类型声明
 '''
 
-
 import sqlite3
 
 
@@ -37,13 +36,56 @@ sql2 = '''create table order_tb(_id integer primary key autoincrement,
                                 foreign key(user_id) references user_tb(_id))'''
 cursor.execute(sql2)
 
-'''4.执行DML语句进行增删查改'''
+'''4.执行DML语句进行增删改'''
 cursor.execute('insert into user_tb values(null, ?, ?, ?)',
                ('孙悟空', '123456', 'male'))
 cursor.execute('insert into order_tb values(null, ?, ?, ?, ?)',
                ('鼠标', '34', '3', 1))
-conn.commit()   # 提交事务
+
+conn.commit()   # （重要步骤）提交事务后生效
+
+'''5.执行DML语句进行查询'''
+cursor.execute('select * from user_tb where _id > ?;', (2,))
+
+count = cursor.rowcount     # 获取返回的记录数, 实际上一直返回-1，无法使用
+print(cursor.rowcount)
+col_tuple = cursor.description  # 获取返回数据的列信息，为元组嵌套元组结构
+print(col_tuple)
+
+result_one = cursor.fetchone()     # 获取返回的1条记录，游标移动至返回结果末尾（即下次查询不会重复返回），无数据返回None
+print(result_one)
+result_many = cursor.fetchmany(100)     # 获取返回的多条记录(传参为数量n)，游标移动至返回结果末尾（即下次查询不会重复返回），无数据返回None
+print(result_many)
+result_all = cursor.fetchall()     # 获取返回的全部记录，游标移动至返回结果末尾，无数据返回None
+print(result_all)
+
+'''6.关闭游标，关闭连接'''
+# cursor.close()  # 关闭游标
+# conn.close()    # 关闭连接
 
 
-cursor.close()  # 关闭游标
-conn.close()    # 关闭连接
+# Other:其他方法
+'''cursor.executemany(): 多次执行同一条SQL语句, 不同的参数以序列形式依次传参
+        注：select语句可能会返回多个查询结果，因此不能使用该方法执行查询语句，无意义
+'''
+cursor.executemany('insert into user_tb values(null, ?, ?, ?)',
+                   (('sun', '123456', 'male'),
+                    ('bai', '123456', 'female'),
+                    ('zhu', '123456', 'male'),
+                    ('sha', '123456', 'male'),
+                    ('tang', '123456', 'male'),))
+cursor.executemany('update user_tb set name=? where _id=?',
+                   (('小孙', '2'),
+                    ('小白', '3'),
+                    ('小猪', '4'),
+                    ('小沙', '5'),
+                    ('小唐', '6'),))
+
+'''cursor.executescript(): 非标准API方法，用于执行一段SQL脚本'''
+cursor.executescript('''insert into user_tb values(null, '武松', '3444', 'male');
+                        insert into user_tb values(null, '林冲', '4444', 'male');
+                        create table item_tb(_id integer primary key autoincrement,
+                                              name,
+                                              price);
+                    ''')
+# 需要conn.commit()提交事务生效
