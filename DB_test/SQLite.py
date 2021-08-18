@@ -36,7 +36,7 @@ sql2 = '''create table order_tb(_id integer primary key autoincrement,
                                 foreign key(user_id) references user_tb(_id))'''
 cursor.execute(sql2)
 
-'''4.执行DML语句进行增删改'''
+'''4.执行DML语句进行增删改（需要commit步骤）'''
 cursor.execute('insert into user_tb values(null, ?, ?, ?)',
                ('孙悟空', '123456', 'male'))
 cursor.execute('insert into order_tb values(null, ?, ?, ?, ?)',
@@ -44,7 +44,7 @@ cursor.execute('insert into order_tb values(null, ?, ?, ?, ?)',
 
 conn.commit()   # （重要步骤）提交事务后生效
 
-'''5.执行DML语句进行查询'''
+'''5.执行DML语句进行查询（无需commit步骤）'''
 cursor.execute('select * from user_tb where _id > ?;', (2,))
 
 count = cursor.rowcount     # 获取返回的记录数, 实际上一直返回-1，无法使用
@@ -60,8 +60,8 @@ result_all = cursor.fetchall()     # 获取返回的全部记录，游标移动�
 print(result_all)
 
 '''6.关闭游标，关闭连接'''
-# cursor.close()  # 关闭游标
-# conn.close()    # 关闭连接
+cursor.close()  # 关闭游标
+conn.close()    # 关闭连接
 
 
 # Other:其他方法
@@ -88,4 +88,4 @@ cursor.executescript('''insert into user_tb values(null, '武松', '3444', 'male
                                               name,
                                               price);
                     ''')
-# 需要conn.commit()提交事务生效
+# 上述修改均需要conn.commit()提交事务生效
