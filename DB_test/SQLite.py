@@ -89,3 +89,9 @@ cursor.executescript('''insert into user_tb values(null, '武松', '3444', 'male
                                               price);
                     ''')
 # 上述修改均需要conn.commit()提交事务生效
+
+'''其他函数：conn对象方法
+    自定义函数： conn.create_function(name, num_params, func)：注册一个自定义函数，后面程序可以直接在SQL语句中使用该自定义函数
+    自定义聚集函数： conn.create_aggregate(name, num_params, aggregate_class): 注册一个自定义的聚集函数
+    自定义比较函数： conn.create_collation(name, callable): 注册一个自定义的比较函数
+'''
