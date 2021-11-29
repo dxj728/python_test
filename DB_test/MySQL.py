@@ -27,7 +27,6 @@ sql1 = '''create table user_tb(id INT UNSIGNED AUTO_INCREMENT,
 c.execute(sql1)     #DDL语句不需要事务提交(commit)，可直接生效
 
 '''3.2调用execute()执行DML插入数据语句'''
-sql2 = ''''''
 c.execute('insert into user_tb values(null, %s, %s, %s)', ('孙悟空', '123456', 'male'))
 conn.commit()   # 增删改等修改数据的DML语句需要事务提交commit后生效，查询语句亦不需要commit提交事务
 
