@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+
+'''manage.py:
+    应用的命令行接口
+'''
+
 import os
 import sys
 
