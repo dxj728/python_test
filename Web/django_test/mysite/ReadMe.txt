@@ -11,7 +11,17 @@ python .\manage.py runserver ：直接运行开发服务器，访问链接: http
 3. manage.py startapp blog 执行命令，创建名称为blog的应用。内包含model.py, views.py, test.py等多个文件
 4. 在项目文件夹下的settings.py文件中找到DATABASES配置项，填充对应的数据库连接字段
     4.1 manage.py migrate 执行命令，创建表结构
-    4.2 manage.py makegration 执行命令，让django知道我们的模型有所变更
+    4.2 manage.py makemigrations 执行命令，让django知道我们的模型有所变更
     备注，此步骤可能提示需要安装mysql客户端
             pip install mysql-python
          或 pip install PyMySQL(此库需要在settings.py所在目录下_init_.py中增加导入语句: import pymysql \ pymysql.install_as_MySQLdb())
+5. manage.py createsuperuser 执行该命令创建超级用户，需要输入username, E-mail, password(again)等信息
+6. manage.py shell 执行该命令启动django shell, 通过此巩固，可以实例化模型，并与应用交互，这些任务在WEB应用开发中不易完成
+    4.1 from blog.models import BlogPost 执行该命令在django shell中导入BlogPost模型
+    4.2 BlogPost.objects.all() 执行该命令在django shell中查询数据库中的BlogPost实例个数，获取数据库中存储的所有BlogPost对象的列表
+    4.3 bp = BlogPost(title="test cmd shell", body='''hello, world''', timestamp=datetime.now()) 在django shell中实例化对象
+    4.4 bp.save() 在django shell中将其写入到数据库中
+    4.5 BlogPost.objects.count() 在django shell中获取该对象实例总个数
+    4.6 bp = BlogPost.objects.all()[0] 在django shell中获取含有所有BlogPost对象的列表中的第一个元素
+    4.7 print(bp.title) 在django shell中输出该元素的属性
+7.
