@@ -22,7 +22,8 @@ def fib(n):
         return n
     else:
         return fib(n-1) + fib(n-2)
-    
+
+
 def fib1(n):
     """Fibonacci非递归解法：时间复杂度0(n)"""
     a, b = 1, 1
@@ -33,8 +34,10 @@ def fib1(n):
 # print(fib(40))      # 计算时间很长
 # print(fib1(400))    # 计算时间很短，立等可取
 
+
 """------Bubble Sort(冒泡排序)------"""
 arr = [6, 0, 2, 10, 14, 26, -8]
+
 
 def bubble_sort(arr):
     n = len(arr)
@@ -43,6 +46,7 @@ def bubble_sort(arr):
             if arr[j] > arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
 
+
 bubble_sort(arr)        # 排序内部直接生效，无需接收返回值
 print(arr)
 
@@ -50,7 +54,8 @@ print(arr)
 """------Quick Sort(冒泡排序)------"""
 arr = [6, 0, 2, 10, 14, 26, -8]
 
-def Quick_sort(arr, start, end):
+
+def quick_sort(arr, start, end):
     """快速排序：非稳定性排序，时间复杂度介于O(nlogn)与n(n2)之间(与序列有序性成反比)"""
     if start >= end:    # start>end时，证明右边已无数据
         return
@@ -65,9 +70,10 @@ def Quick_sort(arr, start, end):
             left = left + 1
         arr[right] = arr[left]
     arr[left] = mid     # 元素归位
-    Quick_sort(arr, start, left-1)      # 函数自调用
-    Quick_sort(arr, left+1, end)
+    quick_sort(arr, start, left-1)      # 函数自调用
+    quick_sort(arr, left+1, end)
 
-Quick_sort(arr, 0, len(arr)-1)
+
+quick_sort(arr, 0, len(arr)-1)
 print(arr)
 
