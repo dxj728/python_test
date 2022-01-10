@@ -91,9 +91,22 @@ class Solution03:
                 return nums[i]
 
 
+'''剑指 Offer 53 - I. 在排序数组中查找数字 I'''
+class Solution53:
+    def search(self, nums: List[int], target: int) -> int:
+        return nums.count(target)
 
 
 
-
-
+'''剑指 Offer 53 - II. 0～n-1中缺失的数字'''
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        for i in range(0, len(nums)):
+            if i != len(nums) -1:
+                if nums[i+1] - nums[i] > 1:
+                    return nums[i] + 1
+            else:
+                if nums[0] != 0:
+                    return 0
+                return nums[i] + 1
 
