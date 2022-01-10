@@ -97,9 +97,8 @@ class Solution53:
         return nums.count(target)
 
 
-
 '''剑指 Offer 53 - II. 0～n-1中缺失的数字'''
-class Solution:
+class Solution53:
     def missingNumber(self, nums: List[int]) -> int:
         for i in range(0, len(nums)):
             if i != len(nums) -1:
@@ -109,4 +108,47 @@ class Solution:
                 if nums[0] != 0:
                     return 0
                 return nums[i] + 1
+
+
+'''剑指 Offer 04. 二维数组中的查找'''
+class Solution04:
+    def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
+        for cur_list in matrix:
+            if target in cur_list:
+                return True
+        return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
