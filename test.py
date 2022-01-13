@@ -2,7 +2,7 @@
 # File: test.py
 # Author: dxj728
 # Time: 2019年06月03日06时
-# 说明：	命令行执行python -m pydoc -p 端口号 ，可以直接查询官方模块文档。
+# 说明：    命令行执行python -m pydoc -p 端口号 ，可以直接查询官方模块文档。
 
 import  sys
 import datetime, time
@@ -36,15 +36,15 @@ import datetime, time
 # row1_values = []
 # print(ws[0])
 # for row in ws.iter_rows():
-# 	rows.append(row)
+#     rows.append(row)
 # print(len(rows[0]))
 # for i in range(len(rows)):
-# 	row1_values.append(rows[0][i].value.encode('utf-8'))
+#     row1_values.append(rows[0][i].value.encode('utf-8'))
 # print(row1_values)
 # # 获取所有列
 # cols = []
 # for col in ws.iter_cols():
-# 	cols.append(col)
+#     cols.append(col)
 # print("rows：{} cols:{}".format(rows[0],cols[0]))
 
 
@@ -52,10 +52,10 @@ import datetime, time
 
 # from time_test import dingshi
 # if __name__ == '__main__':
-# 	end_time = '23:09:10'
-# 	ds = dingshi()
-# 	ds.start(end_time)
-# 	print('ok')
+#     end_time = '23:09:10'
+#     ds = dingshi()
+#     ds.start(end_time)
+#     print('ok')
 
 # import os
 # from scapy.all import *
@@ -63,19 +63,19 @@ import datetime, time
 # time_list = []
 # packets = rdpcap(r"D:\desktop\p1.pcap")
 # for data in packets:
-# 	if data.haslayer("ICMP"):
-# 		str_1 = repr(data)
-# 		# print(str_1)
-# 		# print(ls(data))
-# 		time_list.append(data.time)
-# 		# print(data['IP'].payload.original)  # 打印出'IP','IPV6','ARP'或者其他
-# 		# print(data.payload.name)#打印出'IP','IPV6','ARP'或者其他
+#     if data.haslayer("ICMP"):
+#         str_1 = repr(data)
+#         # print(str_1)
+#         # print(ls(data))
+#         time_list.append(data.time)
+#         # print(data['IP'].payload.original)  # 打印出'IP','IPV6','ARP'或者其他
+#         # print(data.payload.name)#打印出'IP','IPV6','ARP'或者其他
 #
 # # with PcapReader(r"D:\desktop\p1.pcap") as packets: #Windows这样需要考虑转义字符
-# # 	x = packets.read_all()
-# # 	for data in packets.read_all():
-# # 		str_1 = repr(data)
-# # 		print(str_1)
+# #     x = packets.read_all()
+# #     for data in packets.read_all():
+# #         str_1 = repr(data)
+# #         print(str_1)
 #
 # print(time_list)
 # t1 = 1583844517.933096
@@ -100,40 +100,40 @@ import datetime, time
 # print(y)
 
 # class grade:
-# 	pass
+#     pass
 #
 #
 #
 # if __name__ == '__main__':
-# 	n, m = input().strip().split()
-# 	grade_list = map(int, input().strip().split())
-# 	operate_list = [input() for x in range(0, m)]
-# 	print(n, m)
-# 	print(grade_list)
-# 	print(operate_list)
+#     n, m = input().strip().split()
+#     grade_list = map(int, input().strip().split())
+#     operate_list = [input() for x in range(0, m)]
+#     print(n, m)
+#     print(grade_list)
+#     print(operate_list)
 
 # def deal_str(str1):
-# 	ret_list = []
-# 	if len(str1) <= 8:
-# 		ret_list.append(str1.ljust(8, '0'))
-# 		return ret_list
-# 	else:
-# 		n = int(len(str1) / 8)
-# 		for i in range(n):
-# 			ret_list.append(str1[i*8:i*8+8])
-# 		if len(str1) % 8 != 0:
-# 			y = len(str1) % 8
-# 			str2 = str1[8*n:]
-# 			ret_list.append(str2.ljust(8, '0'))
-# 		return ret_list
+#     ret_list = []
+#     if len(str1) <= 8:
+#         ret_list.append(str1.ljust(8, '0'))
+#         return ret_list
+#     else:
+#         n = int(len(str1) / 8)
+#         for i in range(n):
+#             ret_list.append(str1[i*8:i*8+8])
+#         if len(str1) % 8 != 0:
+#             y = len(str1) % 8
+#             str2 = str1[8*n:]
+#             ret_list.append(str2.ljust(8, '0'))
+#         return ret_list
 #
 # if __name__ == '__main__':
-# 	str1 = input().strip()
-# 	if len(str1) == 0:
-# 		print(str1)
-# 	else:
-# 		ret_list = deal_str(str1)
-# 		print('\n'.join(map(str, ret_list)))
+#     str1 = input().strip()
+#     if len(str1) == 0:
+#         print(str1)
+#     else:
+#         ret_list = deal_str(str1)
+#         print('\n'.join(map(str, ret_list)))
 
 # import os, sys
 # if os.path.exists('1.txt'):
@@ -249,6 +249,100 @@ import time
 # btn = ttk.Button(root,text="Start",command=increment)
 # btn.grid(row=1,column=0)
 # root.mainloop()
+
+# import copy
+#
+# def removeDuplicates(nums) -> int:
+#     if len(nums) == 0 or nums is None:
+#         return 0
+#     new_list = copy.deepcopy(nums)
+#     nums.clear()
+#     for i in range(len(new_list)):
+#         if new_list[i] not in nums:
+#             nums.append(new_list[i])
+#     return len(nums)
+#
+# print(removeDuplicates([1,1,2]))
+#
+# def maxArea(height) -> int:
+#     if len(height) == 0 or height is None or len(height) == 1:
+#         return 0
+#     low_value = height[0]
+#     low_index = 0
+#     hign_value = height[1]
+#     hign_index = 1
+#     for i in range(len(height)):
+#         if height[i] > hign_value:
+#             low_value = hign_value
+#             low_index = hign_index
+#             hign_value = height[i]
+#             hign_index = i
+#         elif height[i] > low_value and height[i] < hign_value:
+#             low_value = height[i]
+#             low_index = i
+#     m = low_value * abs(hign_index - low_index)
+#     return m
+#
+#
+# print(maxArea([1,8,6,2,5,4,8,3,7]))
+
+
+# def bubble_sort(l1:list):
+#     if l1 is None:
+#         return None
+#     if len(l1) == 0 or len(l1) == 1:
+#         return l1
+#     length = len(l1)
+#     for i in range(0, length):
+#         for j in range(0, length-i-1):
+#             if l1[j] > l1[j+1]:
+#                 l1[j], l1[j+1] = l1[j+1], l1[j]
+#     return l1
+#
+#
+# test_list = [1, 4, 3, 2, 6, 10, 8]
+# ret_list = bubble_sort(test_list)
+# print(ret_list)
+
+
+# class Solution:
+#     def maxProfit(self, prices) -> int:
+#         if len(prices) == 0:
+#             return 0
+#         ret_list = []
+#         end = len(prices)
+#         for i in range(1, end):
+#             max_value = max(prices[i:end])
+#             min_value = min(prices[0:i])
+#             tmp = max_value - min_value
+#             ret_list.append(tmp)
+#         ret = 0 if max(ret_list) <= 0 else max(ret_list)
+#         return ret
+#
+# test_list = [7,1,5,3,6,4]
+# x = Solution()
+# ret = x.maxProfit(test_list)
+# print(ret)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

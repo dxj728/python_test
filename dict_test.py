@@ -11,9 +11,9 @@ print(type(dict_demo))  # <class 'dict'>
 print(dict_demo['name'])    # 访问value值
 
 '''字典创建
-	1.直接{key:value}创建
-	2.dict()传入列表或元组创建
-	3.dict()传入关键字参数创建
+    1.直接{key:value}创建
+    2.dict()传入列表或元组创建
+    3.dict()传入关键字参数创建
 '''
 # dict1 = {(20, 30): 'good', 30: 'bad'}    # 元组可以做key值，但是列表不可以做key值
 # dict2 = dict([('brocoli', 1.29), ('lettuce', 2.19)])
@@ -41,8 +41,8 @@ print(dir(dict))
 # print(dict_demo)    # {}
 
 '''
-	dict.get(key, default=None): 根据key获取对应的value值，如果key不在字典中，则返回default值,返回值生效
-	dict.setdefault(key, default=None)：根据key获取对应的value值，如果key不存在字典中，则新增key-default对至原字典，再返回default值
+    dict.get(key, default=None): 根据key获取对应的value值，如果key不在字典中，则返回default值,返回值生效
+    dict.setdefault(key, default=None)：根据key获取对应的value值，如果key不存在字典中，则新增key-default对至原字典，再返回default值
 '''
 # x1 = dict_demo.get('name')
 # print(x1)   # dxj728
@@ -60,8 +60,8 @@ print(dir(dict))
 # print(list(x3))     # 强制转为列表后：[('name', 'dxj728'), ('age', 18)]
 
 '''
-	dict.keys(): 以列表返回一个字典所有的key值, 返回值生效
-	dict.values(): 以列表返回字典中的所有的value值，返回值生效
+    dict.keys(): 以列表返回一个字典所有的key值, 返回值生效
+    dict.values(): 以列表返回字典中的所有的value值，返回值生效
 '''
 # x4 = dict_demo.keys()
 # print(x4)   # ['name', 'age']
@@ -69,8 +69,8 @@ print(dir(dict))
 # print(x5)   # ['dxj728', 18]
 
 '''
-	dict.pop(key, default): 删除字典给定键 key 所对应的值，返回值为被删除的值, key未指定时返回default值，直接生效
-	dict.popitem(): 随机(伪随机)弹出字典中的一个key-value对，可视为删除，返回弹出的key，value值，直接生效
+    dict.pop(key, default): 删除字典给定键 key 所对应的值，返回值为被删除的值, key未指定时返回default值，直接生效
+    dict.popitem(): 随机(伪随机)弹出字典中的一个key-value对，可视为删除，返回弹出的key，value值，直接生效
 '''
 # x6 = dict_demo.pop('age')
 # print(dict_demo)    # {'name': 'dxj728'}

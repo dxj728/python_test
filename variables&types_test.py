@@ -8,7 +8,7 @@
 print('hello world')
 
 '''变量
-	python中变量创建无需声明，并且数据类型可以被动态改变(弱类型语言特性)
+    python中变量创建无需声明，并且数据类型可以被动态改变(弱类型语言特性)
 '''
 # a = 5
 # print(a)    # 5         \\无需声明，变量赋值同时即是创建变量
@@ -21,18 +21,18 @@ print('hello world')
 
 
 '''常量：设定后不能再进行变动
-	python中没有常量，一般通过约定俗成的变量名全大写的形式表示这是一个常量，并未真正实现，其对应值已然可以被改变
+    python中没有常量，一般通过约定俗成的变量名全大写的形式表示这是一个常量，并未真正实现，其对应值已然可以被改变
 '''
 # PI = 3.14
 
 
 '''标准数据类型
-	数值：下分为整型(int)、浮点型(float)、复数(complex)、长整型(long，python2)、
-	字符串：str
-	列表：list
-	元组：tuple
-	字典：dict
-	集合: set
+    数值：下分为整型(int)、浮点型(float)、复数(complex)、长整型(long，python2)、
+    字符串：str
+    列表：list
+    元组：tuple
+    字典：dict
+    集合: set
 '''
 int_10 = 4
 int_2 = 0b111
@@ -66,8 +66,8 @@ int_16 = 0x2f
 
 
 '''变量作用域:
-	局部变量：函数中定义的变量，包括传参，都称为局部变量
-	全局变量：在函数外面，全局范围内定义的变量，被称为全局变量
+    局部变量：函数中定义的变量，包括传参，都称为局部变量
+    全局变量：在函数外面，全局范围内定义的变量，被称为全局变量
 '''
 print(globals())    # 打印全局变量，总是返回全局变量字典
 print(locals())     # 打印当前作用域中变量，全局范围内返回全局变量字典，函数内返回当前局部变量字典
@@ -77,12 +77,12 @@ print(vars())       # 打印指定对象范围内的所有变量字典，不传�
 str1 = 'hello'      # 全局变量str1
 str2 = 'world'      # 全局变量str2
 def fun(str1='hi'):
-	print(str1)     # 局部变量str1
-	print(globals()['str2'])    # 访问全局变量str2
-	global str2
-	print(str2)     # 声明全局变量str2
-	# global str1
-	# print(str1)
-	
+    print(str1)     # 局部变量str1
+    print(globals()['str2'])    # 访问全局变量str2
+    global str2
+    print(str2)     # 声明全局变量str2
+    # global str1
+    # print(str1)
+    
 
 # fun()

@@ -52,7 +52,7 @@ try:
     print('over')
 finally:
     # browser.close()     # 关闭单个窗口
-    browser.quit()		# 关闭所有窗口
+    browser.quit()        # 关闭所有窗口
 
 #
 # from selenium import webdriver

@@ -4,8 +4,8 @@
 # Time: 2019年03月04日00时
 # 说明：logging日志模块练习
 # 参考博客：https://www.cnblogs.com/Nicholas0707/p/9021672.html
-#	log系统1：https://www.cnblogs.com/nancyzhu/p/8551506.html
-# 	log系统2：https://www.cnblogs.com/crawer-1/p/8258146.html
+#    log系统1：https://www.cnblogs.com/nancyzhu/p/8551506.html
+#     log系统2：https://www.cnblogs.com/crawer-1/p/8258146.html
 import logging
 
 
@@ -31,10 +31,10 @@ logging.critical("critical_config")
 
 # 3.输出文件
 logging.basicConfig(level=logging.DEBUG,
-					filename=r"D:\desktop\test\log.log",
-					format="%(asctime)s%(name)s %(levelname)s %(pathname)s %(lineno)s: %(message)s",
-					datefmt='%Y-%m-%d %H:%M:%S %a'
-					)
+                    filename=r"D:\desktop\test\log.log",
+                    format="%(asctime)s%(name)s %(levelname)s %(pathname)s %(lineno)s: %(message)s",
+                    datefmt='%Y-%m-%d %H:%M:%S %a'
+                    )
 logging.debug("debug_txt")
 logging.info("info_txt")
 logging.warning("warning_txt")

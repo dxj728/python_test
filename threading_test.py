@@ -55,9 +55,9 @@ import threading, time
 # def action(max):
 #     """线程调度方法"""
 #     for i in range(max):
-#         td_name = threading.current_thread().name	# 获取当前线程的线程名称
+#         td_name = threading.current_thread().name    # 获取当前线程的线程名称
 #         print( td_name + ':' + str(i))
-#         time.sleep(1)		# 线程睡眠，当前线程处于阻塞状态
+#         time.sleep(1)        # 线程睡眠，当前线程处于阻塞状态
 #
 #
 # """创建及使用示例"""
@@ -72,17 +72,17 @@ import threading, time
 #                 kwargs: 指定一个字典，以关键字参数形式为target目标函数传参
 #                 daemon: 指定创建的线程是否为后台线程
 #         """
-#         jt = threading.Thread(target=action, args=(100,), name ="被join的线程")		# 创建线程（默认为前台线程）
+#         jt = threading.Thread(target=action, args=(100,), name ="被join的线程")        # 创建线程（默认为前台线程）
 #
-#         jt.daemon = True		# 设置为守护线程（后台线程，在start方法前设置，后台线程创建的也为后台线程），将在前台线程死亡后自动死亡
+#         jt.daemon = True        # 设置为守护线程（后台线程，在start方法前设置，后台线程创建的也为后台线程），将在前台线程死亡后自动死亡
 #
 #         """线程启动: 线程已就绪，等待系统线程调度，可随时执行(实际运行取决于python解释器中线程调度器的调度)"""
 #         jt.start()
 #
-#         jt.join(timeout=10)		# 线程等待，主线程必须在子线程执行完成后才可再次执行, timeout设置最长等待时间（单位为秒），过时不再等待
+#         jt.join(timeout=10)        # 线程等待，主线程必须在子线程执行完成后才可再次执行, timeout设置最长等待时间（单位为秒），过时不再等待
 #
 #     if i > 20:
-#         x = jt.is_alive()		# 判断线程是否已死亡，就绪，运行，阻塞时返回True, 新建，死亡时返回False, 已死亡的线程无法再次启动start(引发RuntimeRror异常)
+#         x = jt.is_alive()        # 判断线程是否已死亡，就绪，运行，阻塞时返回True, 新建，死亡时返回False, 已死亡的线程无法再次启动start(引发RuntimeRror异常)
 #         print(jt.is_alive())
 #     print(threading.current_thread().name + ' ' + str(i))       # 返回当前正在执行的线程对象
 

@@ -147,11 +147,11 @@ if __name__ == '__main__':
     excel_test = Excel(excel_path)
     # excel_test.open_excel_check()
     # excel_test.test()
-    # x = excel_test.load_one_data(row=6, col=8)		# unicode类型
-    # y = x.split('【')[1].split('】')[0]		# unicode类型
-    # z = y.encode('utf-8')		# str类型
+    # x = excel_test.load_one_data(row=6, col=8)        # unicode类型
+    # y = x.split('【')[1].split('】')[0]        # unicode类型
+    # z = y.encode('utf-8')        # str类型
     # if y == z:
-    # 	print('OK')		# 可成功比较
+    #     print('OK')        # 可成功比较
     # print(x)
     # print(y)
     # print(z)

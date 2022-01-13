@@ -172,7 +172,7 @@ class Solution63:
         end = len(prices)
         for i in range(1, end):
             max_value = max(prices[i:end])
-            min_value = min(prices[0:i])
+            min_value = min(prices[0:i]) 
             tmp = max_value - min_value
             ret_list.append(tmp)
         ret = 0 if max(ret_list) <= 0 else max(ret_list)
