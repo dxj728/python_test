@@ -14,7 +14,7 @@ filename = r'D:\desktop\test1.xls'  # 附件地址
 
 def send_mail(to_list, sub, context, filename):
     mail_host = "smtp.163.com"
-    mail_user = "dxj728@163.com"
+    mail_user = "XXX@163.com"
     mail_pass = "********"
     mail_postfix = "163.com"
     me = "服务器" + "<" + mail_user + "@" + mail_postfix + ">"
