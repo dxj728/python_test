@@ -72,25 +72,25 @@ TCP/IP五层模型
 
 
 """------服务端代码------"""
-# import socket
-#
-# s_socket = socket.socket()      # 创建socket对象
-# s_socket.bind(('127.0.0.1', 30000))     # 绑定socket到本机IP地址和端口
-# s_socket.listen()   # 服务器开始监听来自客户端的连接
-# while True:
-#     c_socket, address = s_socket.accept()   # 每当接收到客户端的socket请求时，该方法就返回对应的socket和远程地址
-#     print('{}，连接地址：{}'.format(c_socket, address))     # c_socket为接收到的socket相关信息
-#     c_socket.send('hello world'.encode('utf-8'))
-#     c_socket.close()    # 关闭连接
+import socket
+
+s_socket = socket.socket()      # 创建socket对象
+s_socket.bind(('127.0.0.1', 30000))     # 绑定socket到本机IP地址和端口
+s_socket.listen()   # 服务器开始监听来自客户端的连接
+while True:
+    c_socket, address = s_socket.accept()   # 每当接收到客户端的socket请求时，该方法就返回对应的socket和远程地址
+    print('{}，连接地址：{}'.format(c_socket, address))     # c_socket为接收到的socket相关信息
+    c_socket.send('hello world'.encode('utf-8'))
+    c_socket.close()    # 关闭连接
 
 
 """------客户端代码------"""
-# import socket
-#
-# s = socket.socket()
-# s.connect(('127.0.0.1', 30000))
-# print('---{}---'.format(s.recv(1024).decode('utf-8')))
-# s.close()
+import socket
+
+s = socket.socket()
+s.connect(('127.0.0.1', 30000))
+print('---{}---'.format(s.recv(1024).decode('utf-8')))
+s.close()
 
 
 
