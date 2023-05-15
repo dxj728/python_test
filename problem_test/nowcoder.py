@@ -125,13 +125,78 @@
 输出例子：
 170'''
 
-import sys
+# import sys
+#
+# for line in sys.stdin:
+#     a = line.split()
+#     x = int(a[0], base=16)
+#     print(x)
 
-for line in sys.stdin:
-    a = line.split()
-    x = int(a[0], base=16)
-    print(x)
     
+'''BM50 两数之和'''
+# class Solution:
+#     def twoSum(self , numbers: List[int], target: int) -> List[int]:
+#         # write code here
+#         for i in range(0, len(numbers)):
+#             for j in range(i + 1, len(numbers)):
+#                 if numbers[i] + numbers[j] == target:
+#                     ret_list = [i+1, j+1]
+#                     ret_list.sort()
+#                     return ret_list
+
+# class Solution:     ## 参照解题
+#     def twoSum(self, numbers, target):
+#         # write code here
+#         new_dict = {}
+#         for i, num in enumerate(numbers):
+#             if (target-num) in new_dict:
+#                 return [new_dict[target-num]+1, i+1]
+#             new_dict[num] = i
+
+# a = Solution()
+# print(a.twoSum([0,4,3,0],0))
+
+
+'''BM54 三数之和'''
+# class Solution:
+#     def threeSum(self, numbers):
+#         # write code here
+#         if len(numbers) < 3:
+#             return []
+#         ret_list = []
+#         for i in range(0, len(numbers)):
+#             print(i, numbers[i])
+#             for j in range(i+1, len(numbers)):
+#                 print(j, numbers[j])
+#                 for k in range(j+1, len(numbers)):
+#                     if numbers[i]+numbers[j]+numbers[k] == 0:
+#                         new_list = [numbers[i],numbers[j],numbers[k]]
+#                         new_list.sort()
+#                         if numbers[i] == 0 and numbers[j] == 0 and numbers[k] == 0:
+#                             print('1')
+#                         if new_list not in ret_list:
+#                             ret_list.append(new_list)
+#         ret_list.sort()
+#         return ret_list
+#
+#
+# a = Solution()
+# print(a.threeSum([-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

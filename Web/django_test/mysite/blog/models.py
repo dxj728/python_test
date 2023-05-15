@@ -13,7 +13,7 @@ class BlogPost(models.Model):
     brief = models.TextField()      # 文章摘要
     content = models.TextField()       # TextField类型适用于较长的文本，如正文
     publish_date = models.DateTimeField(auto_now=True)      # 时间戳使用DateTimeField类型，本质上为python的datatime.datetime对象
-    
+
     def __str__(self):
         return self.title
     

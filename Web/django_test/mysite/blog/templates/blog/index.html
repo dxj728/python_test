@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Web框架入门</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container page-header">
+    <h1>Django Web框架学习
+        <small>--by dxj728</small>
+    </h1>
+</div>
+
+<div class="container page-body">
+    <div class="col-md-9" role="main">
+        <div class="body-main">
+            {% for article in article_list %}
+            <div>
+                <h2>{{ article.title }}</h2>
+                <p>{{ article.content }}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-3" role="complementary">
+        <div>
+            <h2>最新文章</h2>
+            {% for article in article_list %}
+            <h4><a href="#">{{ article.title }}</a> </h4>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

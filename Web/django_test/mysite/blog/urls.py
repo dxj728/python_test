@@ -10,5 +10,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('hello_world', views.hello_world)
+    path('hello_world', views.hello_world),
+    path('content', views.article_content),
+    path('index', views.get_index_page)
 ]
