@@ -13,16 +13,25 @@
 </head>
 <body>
 <div class="container page-header">
-    <h1>文章标题1
+    <h1>{{ curr_article.title }}
     </h1>
 </div>
 
 <div class="container page-body">
     <div>
-        <p>zxcvbnmaSDFGHJKLQWERTYUIOP</p>
+        {% for section in section_list %}
+        <p>{{ section }}</p>
+        {% endfor %}
     </div>
 
 </div>
-
+<div>
+    <nav aria-label="...">
+  <ul class="pager">
+    <li><a href="/blog/detail/{{previous_article.id}}">上一篇：{{ previous_article.title }}</a></li>
+    <li><a href="/blog/detail/{{next_article.id}}">下一篇：{{ next_article.title }}</a></li>
+  </ul>
+</nav>
+</div>
 </body>
 </html>

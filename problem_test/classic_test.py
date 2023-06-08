@@ -73,7 +73,8 @@ def quick_sort(arr, start, end):
     quick_sort(arr, start, left-1)      # 函数自调用
     quick_sort(arr, left+1, end)
 
-
+print('------quick_sort------')
+print(arr)
 quick_sort(arr, 0, len(arr)-1)
 print(arr)
 
