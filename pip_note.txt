@@ -1,10 +1,23 @@
 --pip源学习--
 
-1.查看当前pip版本    pip list
+1.查看当前pip版本    pip --version
 2.查看当前pip源    pip config list
 3.永久更换pip源    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  （清华源）
 4.换源后更新生效    pip install update
 5.临时换源下载包    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple 包名
+
+python -m pip install -U pip        # 当前pip版本升级（使用当前python版本）
+
+pip list        # 列出当前安装的所有包
+pip install 包名      # 安装包，
+pip install --upgrade 包名       # 升级包，同pip install -U 命令，如未安装包则安装包，已安装则升级至最新版本
+pip uninstall 包名        # 卸载包
+pip search SomePackage      # 搜索包
+pip show 包名     # 显示安装包信息
+pip list -o         # 列出当前可升级的包
+
+pip freeze > requirements.txt       # 将当前环境依赖包输出成requirements.txt文本保存
+pip install -r  requirements.txt        # 在新环境中安装requirements.txt文本中所有依赖包
 
 1.Linux配置文件换源
 mkdir ~/.pip
