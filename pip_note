@@ -1,0 +1,28 @@
+--pip源学习--
+
+1.查看当前pip版本    pip list
+2.查看当前pip源    pip config list
+3.永久更换pip源    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple  （清华源）
+4.换源后更新生效    pip install update
+5.临时换源下载包    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple 包名
+
+1.Linux配置文件换源
+mkdir ~/.pip
+vim ~/.pip/pip.conf        linux下后缀为conf
+配置文件内容见下
+
+2.Windows下配置文件换源
+C:\Users\帐户名\  路径下新建pip文件夹
+继续pip文件夹内新建pip.ini
+配置文件内容见下
+
+[global]
+index-url = http://mirrors.aliyun.com/pypi/simple/
+[install]
+trusted-host=mirrors.aliyun.com
+
+其他源：
+Python官方    https://pypi.python.org/simple/
+阿里云    http://mirrors.aliyun.com/pypi/simple/
+中国科技大学    https://pypi.mirrors.ustc.edu.cn/simple/
+清华大学    https://pypi.tuna.tsinghua.edu.cn/simple/
