@@ -3,66 +3,9 @@
 # Author: dxj728
 # Time: 2021年12月12日10时
 # 说明：；力扣(leecode)做题
-
-
-# 2021.12.12
-'''7. 整数反转'''
-# def reverse(x: int) -> int:
-#
-#     str_x = str(x)
-#     str_x = str_x[::-1] if '-' not in str_x else '-' + str_x[:0:-1]
-#     ret = int(str_x)
-#     if ret < -2147483648 or ret > 2147483647:
-#         ret = 0
-#     return ret
-
-
-'''4. 寻找两个正序数组中的中位数 ----20230420'''
-# def mn(nums1, nums2):
-#     list1 = nums1 + nums2
-#     list1.sort()
-#     if len(list1) % 2 != 0:
-#         mid = int(len(list1) / 2)
-#         return list1[mid]
-#     else:
-#         mid = int(len(list1) / 2) - 1
-#         return (list1[mid] + list1[mid+1]) / 2
-#
-# nums1 = [1, 3]
-# nums2 = [2]
-# y = mn(nums1, nums2)
-# print(y)
-
-
-"""43.字符串相乘 ----20230422"""
-# def multiply(num1, num2):
-#     n = int(num1) * int(num2)
-#     return str(n)
-#
-# num1 = "2"
-# num2 = "3"
-# print(multiply(num1, num2))
-
-
-'''3. 无重复字符的最长子串 ----20230423'''
-'''未通过最后超长测例'''
-# def lengthOfLongestSubstring(s):
-#     list1 = list(s)
-#     max_value = 0
-#     for i in range(len(list1)):
-#         new_list = []
-#         for j in range(len(list1) - i):
-#             if list1[i+j] not in new_list:
-#                 new_list.append(list1[i+j])
-#             else:
-#                 new_list = []
-#             if len(new_list) > max_value:
-#                 max_value = len(new_list)
-#     return max_value
-#
-# s = "pwwkew"
-# print(lengthOfLongestSubstring(s))
-
+'''
+力扣(leecode)刷题：https://leetcode.cn/
+'''
 
 '''2. 两数相加 ----20230423'''
 # def addTwoNumbers(l1, l2):
@@ -98,11 +41,74 @@
 # l2 = [5,6,4]
 # print(addTwoNumbers(l1, l2))
 
+'''3. 无重复字符的最长子串 ----20230423'''
+'''未通过最后超长测例'''
+# def lengthOfLongestSubstring(s):
+#     list1 = list(s)
+#     max_value = 0
+#     for i in range(len(list1)):
+#         new_list = []
+#         for j in range(len(list1) - i):
+#             if list1[i+j] not in new_list:
+#                 new_list.append(list1[i+j])
+#             else:
+#                 new_list = []
+#             if len(new_list) > max_value:
+#                 max_value = len(new_list)
+#     return max_value
+#
+# s = "pwwkew"
+# print(lengthOfLongestSubstring(s))
 
+'''4. 寻找两个正序数组中的中位数 ----20230420'''
+# def mn(nums1, nums2):
+#     list1 = nums1 + nums2
+#     list1.sort()
+#     if len(list1) % 2 != 0:
+#         mid = int(len(list1) / 2)
+#         return list1[mid]
+#     else:
+#         mid = int(len(list1) / 2) - 1
+#         return (list1[mid] + list1[mid+1]) / 2
+#
+# nums1 = [1, 3]
+# nums2 = [2]
+# y = mn(nums1, nums2)
+# print(y)
 
+'''7. 整数反转 ----20211212'''
+# def reverse(x: int) -> int:
+#
+#     str_x = str(x)
+#     str_x = str_x[::-1] if '-' not in str_x else '-' + str_x[:0:-1]
+#     ret = int(str_x)
+#     if ret < -2147483648 or ret > 2147483647:
+#         ret = 0
+#     return ret
 
+"""43.字符串相乘 ----20230422"""
+# def multiply(num1, num2):
+#     n = int(num1) * int(num2)
+#     return str(n)
+#
+# num1 = "2"
+# num2 = "3"
+# print(multiply(num1, num2))
 
-
+'''88. 合并两个有序数组 ----20240107'''
+# def merge(nums1, m: int, nums2, n: int) -> None:
+#     if m == 0:
+#         nums1 = nums2
+#     elif n == 0:
+#         nums1 = nums1
+#     else:
+#         nums1 = nums1[0:m] + nums2[0:n]
+#         nums1.sort()
+#     print(nums1)
+#
+# nums1 = [1,2,3,0,0,0]
+# nums2 = [2,5,6]
+# merge(nums1, 3, nums2, 3)
 
 
 

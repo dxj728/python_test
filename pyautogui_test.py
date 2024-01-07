@@ -6,7 +6,9 @@
 # Time       ： 2023/9/7 21:37
 # Author     ： dxj728
 # version    ： python 3.7
-# Description： 
+# Description： pyautogui模块学习
+                pip install pyautogui
+                参考链接：https://www.zhihu.com/tardis/zm/art/302592540
 """
 import time
 import pyautogui

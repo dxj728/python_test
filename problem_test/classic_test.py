@@ -50,7 +50,6 @@ def bubble_sort(arr):
 bubble_sort(arr)        # 排序内部直接生效，无需接收返回值
 print(arr)
 
-
 """------Quick Sort(冒泡排序)------"""
 arr = [6, 0, 2, 10, 14, 26, -8]
 
